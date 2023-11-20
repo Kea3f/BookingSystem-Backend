@@ -6,7 +6,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserDetailsService {
-    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
-
-
+    UserDetails loadUserByMail(String mail, String password) throws UsernameNotFoundException;
 }
