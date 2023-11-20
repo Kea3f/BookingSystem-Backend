@@ -11,20 +11,30 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class ProjectSecurityConfig {
 
+    // Configures the default security filter chain for the application.
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        // Disables Cross-Site Request Forgery (CSRF) protection for simplicity in this example.
         http.csrf((csrf) -> csrf.disable())
-        .authorizeHttpRequests((requests) -> requests
-            .requestMatchers("/myprofile", "/mybookings").authenticated()
-                    .requestMatchers("/contact", "/login").permitAll())
-        .formLogin(Customizer.withDefaults())
-        .httpBasic(Customizer.withDefaults());
+                // Configures URL-based security by specifying which requests should be authenticated or permitted.
+                .authorizeHttpRequests((requests) -> requests
+                        // Configures authentication for specific URLs ("/myprofile" and "/mybookings").
+                        .requestMatchers("/myprofile", "/mybookings").authenticated()
+                        // Configures permitAll for specific URLs ("/contact" and "/login").
+                        .requestMatchers("/contact", "/login").permitAll())
+                // Configures form-based login with default settings.
+                .formLogin(Customizer.withDefaults())
+                // Configures HTTP Basic authentication with default settings.
+                .httpBasic(Customizer.withDefaults());
+
+        // Builds and returns the configured security filter chain.
         return http.build();
     }
 
+    // Defines a PasswordEncoder bean for encoding and verifying passwords.
     @Bean
     public PasswordEncoder passwordEncoder() {
+        // Uses BCryptPasswordEncoder as the password encoder.
         return new BCryptPasswordEncoder();
     }
-
 }

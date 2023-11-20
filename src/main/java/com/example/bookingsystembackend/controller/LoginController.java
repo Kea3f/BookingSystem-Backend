@@ -29,20 +29,22 @@ public class LoginController {
     PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
+    // Handles HTTP POST requests, takes a LoginDto as the request body, and a HttpSession as a parameter.
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto, HttpSession session) {
+        // Extracts the email and password from the LoginDto.
         String mail = loginDto.getMail();
         String password = loginDto.getPassword();
 
         try {
+            // Attempts to load user details based on the provided email and password.
             UserDetails userDetails = userDetailsService.loadUserByMail(mail, password);
 
+            // If successful, returns a response indicating a successful login.
             return new ResponseEntity<>("Login successful", HttpStatus.OK);
         } catch (UsernameNotFoundException e) {
-            // Authentication failed
+            // If the user is not found or the password is incorrect, handles the exception.
+            // Returns a response indicating invalid credentials.
             return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
         }
     }
-
-
-
 }

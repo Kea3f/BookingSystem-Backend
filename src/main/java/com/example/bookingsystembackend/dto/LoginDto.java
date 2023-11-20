@@ -12,5 +12,4 @@ Collection<? extends GrantedAuthority> getAuthorities();
 String getMail();
 String getPassword();
 
-
 }
