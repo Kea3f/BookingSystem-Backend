@@ -1,7 +1,7 @@
-package com.example.bookingsystembackend.init;
+package com.example.bookingsystembackend.config;
 
-import com.example.bookingsystembackend.entity.Client;
-import com.example.bookingsystembackend.repositories.ClientRepository;
+import com.example.bookingsystembackend.entity.User;
+import com.example.bookingsystembackend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ClientData implements CommandLineRunner {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private UserRepository userRepository;
     @Override
     public void run(String... args)  {
         createAndSaveClient("John", "Doe", "johndoe@live.com", "1234", 21467376);
@@ -25,13 +25,13 @@ public class ClientData implements CommandLineRunner {
     }
 
     private void createAndSaveClient(String firstname, String lastname, String mail, String password, int phoneNo) {
-        Client client = new Client();
-        client.setFirstname(firstname);
-        client.setLastname(lastname);
-        client.setMail(mail);
-        client.setPassword(password);
-        client.setPhoneNo(phoneNo);
-        clientRepository.save(client);
+        User user = new User();
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setMail(mail);
+        user.setPassword(password);
+        user.setPhoneNo(phoneNo);
+        userRepository.save(user);
     }
 
 
