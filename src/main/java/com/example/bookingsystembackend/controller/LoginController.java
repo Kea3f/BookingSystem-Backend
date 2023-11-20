@@ -36,10 +36,6 @@ public class LoginController {
         try {
             UserDetails userDetails = userDetailsService.loadUserByMail(mail, password);
 
-            // Authentication successful
-            // You might want to store some information in the session if needed
-            session.setAttribute("username", loginDto.getMail());
-
             return new ResponseEntity<>("Login successful", HttpStatus.OK);
         } catch (UsernameNotFoundException e) {
             // Authentication failed
