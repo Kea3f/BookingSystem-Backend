@@ -12,8 +12,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int clientId;
-
+    private int userId;
     private String firstname;
     private String lastname;
     private String mail;
