@@ -4,13 +4,20 @@ import com.example.bookingsystembackend.entity.User;
 import com.example.bookingsystembackend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ClientData implements CommandLineRunner {
 
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    private UserRepository userRepository;
+    public ClientData(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
     @Override
     public void run(String... args)  {
         createAndSaveClient("John", "Doe", "johndoe@live.com", "1234", 21467376);
@@ -29,11 +36,8 @@ public class ClientData implements CommandLineRunner {
         user.setFirstname(firstname);
         user.setLastname(lastname);
         user.setMail(mail);
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
         user.setPhoneNo(phoneNo);
         userRepository.save(user);
     }
-
-
-
 }
