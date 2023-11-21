@@ -27,12 +27,12 @@ public class TreatmentService {
 
     public Treatment editTreatment (int treatmentId, Treatment editedTreatement){
         Treatment existingTreatment = treatmentRepository.findByTreatmentId(treatmentId);
-
         if(existingTreatment != null){
             existingTreatment.setName(editedTreatement.getName());
             existingTreatment.setDescription(editedTreatement.getDescription());
             existingTreatment.setDuration(editedTreatement.getDuration());
             existingTreatment.setPrice(editedTreatement.getPrice());
+
             return treatmentRepository.save(existingTreatment);
         }
         return null;

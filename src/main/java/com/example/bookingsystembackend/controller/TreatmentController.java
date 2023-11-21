@@ -13,7 +13,7 @@ public class TreatmentController {
 
     private final TreatmentService treatmentService;
     @Autowired
-    public TreatmentController(TreatmentService treatmentService, TreatmentService treatmentService1){
+    public TreatmentController(TreatmentService treatmentService){
         this.treatmentService = treatmentService;
     }
 
