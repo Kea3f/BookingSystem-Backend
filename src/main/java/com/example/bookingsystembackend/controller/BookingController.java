@@ -4,7 +4,10 @@ package com.example.bookingsystembackend.controller;
 import com.example.bookingsystembackend.entity.Booking;
 import com.example.bookingsystembackend.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -22,5 +25,14 @@ public class BookingController {
         return this.bookingService.createBooking(booking);
     }
 
+    @GetMapping("/bookings")
+    public List<Booking> readBookings(){
+        return bookingService.readBookings();
+    }
 
+    @DeleteMapping("/delete/{bookingId}")
+    public ResponseEntity<String> deleteBooking(@PathVariable int bookingId){
+        bookingService.deleteBooking(bookingId);
+        return ResponseEntity.ok("Booking Deleted");
+    }
 }
