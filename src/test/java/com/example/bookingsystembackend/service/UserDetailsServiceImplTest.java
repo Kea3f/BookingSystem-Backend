@@ -34,7 +34,7 @@ public class UserDetailsServiceImplTest {
         Mockito.when(userRepository.findByMail(anyString())).thenReturn(mockUser);
 
         // Act
-        UserDetails userDetails = userDetailsService.loadUserByMail(testMail, testPassword);
+        UserDetails userDetails = userDetailsService.loadUserByMail(testMail);
 
         // Assert
         assertNotNull(userDetails);
@@ -57,7 +57,7 @@ public class UserDetailsServiceImplTest {
 
         // Act and Assert
         assertThrows(UsernameNotFoundException.class,
-                () -> userDetailsService.loadUserByMail(testMail, wrongPassword),
+                () -> userDetailsService.loadUserByMail(testMail),
                 "Expected loadUserByMail to throw UsernameNotFoundException");
     }
 }
