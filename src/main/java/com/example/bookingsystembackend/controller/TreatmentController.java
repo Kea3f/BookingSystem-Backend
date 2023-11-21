@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/treatment")
@@ -22,6 +24,11 @@ public class TreatmentController {
         return treatmentService.createTreatment(treatment);
     }
 
+    @GetMapping("/treatments")
+    public List<Treatment> readTreatments(){
+        return treatmentService.readTreatments();
+    }
+
     @PutMapping("/edit")
     public ResponseEntity<Treatment> editTreatment(@PathVariable int treatmentId, @RequestBody Treatment editTreatment){
         Treatment treatment = treatmentService.editTreatment(treatmentId, editTreatment);
@@ -30,6 +37,13 @@ public class TreatmentController {
         }
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/delete/{treatmentId}")
+    public ResponseEntity<String> deleteTreatment(@PathVariable int treatmentId){
+        treatmentService.deleteTreatment(treatmentId);
+        return  ResponseEntity.ok("Treatment deleted");
+    }
+
 
 
 }
