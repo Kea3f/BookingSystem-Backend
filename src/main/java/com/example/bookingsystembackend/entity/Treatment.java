@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Treatment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long treatmentId;
+    private int treatmentId;
 
     private String name;
     private String description;
