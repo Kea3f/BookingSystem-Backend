@@ -21,15 +21,12 @@ public class CustomerData implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        createAndSaveClient("John", "Doe", "johndoe@live.com", "1234", 21467376);
-        createAndSaveClient("Jane", "Smith", "janesmith@gmail.com", "5678", 98765432);
-        createAndSaveClient("Mike", "Johnson", "mikejohnson@yahoo.com", "abcd", 87654321);
-        createAndSaveClient("Emily", "Williams", "emilywilliams@hotmail.com", "efgh", 76543210);
-        createAndSaveClient("Chris", "Anderson", "chrisanderson@gmail.com", "ijkl", 65432109);
-        createAndSaveClient("Sarah", "Brown", "sarahbrown@yahoo.com", "mnop", 54321098);
-        createAndSaveClient("Alex", "Davis", "alexdavis@hotmail.com", "qrst", 43210987);
-        createAndSaveClient("Jessica", "Miller", "jessicamiller@gmail.com", "uvwx", 32109876);
-        createAndSaveClient("Brian", "White", "brianwhite@yahoo.com", "yz12", 21098765);
+        createAndSaveClient("John@gmail.com", "John Doe", "1234", "ROLE_USER", 21467376);
+        createAndSaveClient("Jane@gmail.com", "Jane Smith", "1234", "ROLE_USER", 98765432);
+        createAndSaveClient("Hanne@gmail.com", "Hanne Johnson", "1234", "ROLE_USER", 87654321);
+        createAndSaveClient("Emily@gmail.com", "Emily  Williams", "1234", "ROLE_USER", 76543210);
+
+
     }
 
     private void createAndSaveClient(String email, String fullName, String pwd, String role, int phoneNo) {
