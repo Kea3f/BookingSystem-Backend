@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BankLoadUserService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     CustomerRepository customerRepository;

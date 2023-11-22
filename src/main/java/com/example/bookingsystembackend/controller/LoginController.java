@@ -61,7 +61,7 @@ public class LoginController {
             //return JwtResponseDTO.builder()
             //        .accessToken(jwtService.GenerateToken(authRequestDTO.getUsername()).build();
             return ResponseEntity.status(HttpStatus.OK)
-                    .body("Du er logget på");
+                    .body("logged in");
         } else {
             throw new UsernameNotFoundException("invalid user request..!!");
         }
