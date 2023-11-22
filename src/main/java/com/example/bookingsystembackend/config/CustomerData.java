@@ -1,25 +1,26 @@
 package com.example.bookingsystembackend.config;
 
-import com.example.bookingsystembackend.entity.User;
-import com.example.bookingsystembackend.repositories.UserRepository;
+import com.example.bookingsystembackend.entity.Customer;
+import com.example.bookingsystembackend.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClientData implements CommandLineRunner {
+public class CustomerData implements CommandLineRunner {
 
-    private final UserRepository userRepository;
+    private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public ClientData(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+    public CustomerData(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
+        this.customerRepository = customerRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
+
     @Override
-    public void run(String... args)  {
+    public void run(String... args) {
         createAndSaveClient("John", "Doe", "johndoe@live.com", "1234", 21467376);
         createAndSaveClient("Jane", "Smith", "janesmith@gmail.com", "5678", 98765432);
         createAndSaveClient("Mike", "Johnson", "mikejohnson@yahoo.com", "abcd", 87654321);
@@ -31,13 +32,19 @@ public class ClientData implements CommandLineRunner {
         createAndSaveClient("Brian", "White", "brianwhite@yahoo.com", "yz12", 21098765);
     }
 
-    private void createAndSaveClient(String firstname, String lastname, String mail, String password, int phoneNo) {
-        User user = new User();
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        user.setMail(mail);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setPhoneNo(phoneNo);
-        userRepository.save(user);
+    private void createAndSaveClient(String email, String fullName, String pwd, String role, int phoneNo) {
+        Customer customer = new Customer();
+        customer.setEmail(email);
+        customer.setFullName(fullName);
+        customer.setRole(role);
+        customer.setPwd(passwordEncoder.encode(pwd));
+        customer.setPhoneNo(phoneNo);
+        customerRepository.save(customer);
     }
+
 }
+
+
+
+
+
