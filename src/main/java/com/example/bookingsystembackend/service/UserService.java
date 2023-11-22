@@ -23,14 +23,14 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("loadUser kaldt: user=" + username);
+        System.out.println("loadUser call: user=" + username);
         String userName, password = null;
         List<GrantedAuthority> authorities = null;
         Optional<Customer> customer = null;
         try {
             customer = customerRepository.findByEmail(username);
         } catch (Exception ex) {
-            System.out.println("Database fejl =" + ex.getMessage());
+            System.out.println("Database error =" + ex.getMessage());
         }
         if (customer.isPresent()) {
             userName = customer.get().getEmail();

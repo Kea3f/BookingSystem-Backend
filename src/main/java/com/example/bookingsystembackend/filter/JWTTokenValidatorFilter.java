@@ -19,9 +19,8 @@ import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class JWTTokenValidatorFilter extends OncePerRequestFilter {
+public class JWTTokenValidatorFilter {
 
-    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String jwt = request.getHeader(SecurityConstants.JWT_HEADER);
@@ -49,7 +48,6 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         return request.getServletPath().equals("/dologin");
     }
