@@ -20,7 +20,7 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "userId")
-    private User user;
+    private Customer customer;
 
     // Use @ManyToMany for multiple treatments in one booking
     @ManyToMany
