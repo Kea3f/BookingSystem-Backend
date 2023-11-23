@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/customer")
 public class CustomerRestController {
 
     private final CustomerService customerService;
@@ -26,7 +26,6 @@ public class CustomerRestController {
     public CustomerRestController(CustomerService customerService) {
         this.customerService = customerService;
     }
-
 
     //Login
     @PostMapping("/login")
@@ -44,47 +43,33 @@ public class CustomerRestController {
         }
     }
 
-    @GetMapping("/customerList")
-    public List<Customer> getAllCustomer() {
-        return customerService.getAllCustomer();
-    }
-
-
-    @GetMapping("/customerInfo/{customerId}")
-    public ResponseEntity<Customer> getCustomerInfo(@PathVariable int customerId) {
-        Customer customer = customerService.getCustomerById(customerId);
-        if (customer != null) {
-            return ResponseEntity.ok(customer);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
+    //Signup
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public Customer signupCustomer(@RequestBody Customer customer) {
-        // Consider adding password hashing here before saving to the database
         return customerService.signupCustomer(customer);
     }
 
+    @GetMapping("/info{customerId}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable int customerId) {
+        Customer customer = customerService.getCustomerById(customerId);
+        return ResponseEntity.ok(customer);
+    }
 
-
-    @PutMapping("/editCustomer/{customerId}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable int customerId, @RequestBody Customer updatedCustomer) {
+    @PutMapping("/update/{customerId}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable int customerId, @RequestBody Customer updatedCustomer) throws Exception {
         Customer customer = customerService.updateCustomer(customerId, updatedCustomer);
-        if (customer != null) {
-            return ResponseEntity.ok(customer);
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(customer);
     }
 
-
-
-
-    @DeleteMapping("/deleteCustomer/{customerId}")
-    public ResponseEntity<String> deleteCustomer(@PathVariable int customerId) {
+    @DeleteMapping("/delete/{customerId}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable int customerId) throws Exception {
         customerService.deleteCustomer(customerId);
-        return ResponseEntity.ok("customer deleted");
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
+
 
 }
 
