@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        .logo-img {
+            flex: 2;
+            max-width: 60%;
+            height: auto;
+            padding: 20px;
+        }
+
+        .buttons {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        button {
+            background-color: #fff;
+            color: #000;
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 15px 40px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            white-space: nowrap;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: lightgrey;
+            color: #fff;
+        }
+
+        button:active {
+            background-color: lightgrey;
+        }
+
+        .menu-bar-container {
+            width: 100%;
+            height: auto;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Container for the menu bar -->
+<div class="menu-bar-container"></div>
+
+<div class="container">
+    <div class="buttons">
+        <button id="movieBookingButton">Movie Booking</button>
+        <button id="accessingBookingDetailsButton">Accessing Booking Details</button>
+        <button id="customerCatalogButton">Employee Catalog</button>
+    </div>
+</div>
+
+
+<script>
+    // Add an event listener to the "customer Catalog" button
+    const customerCatalogButton = document.getElementById("customerCatalogButton");
+    customerCatalogButton.addEventListener("click", function () {
+        // Navigate to the "customerList.html" page when the button is clicked
+        window.location.href = 'employeeList'; //list
+    });
+
+    // Add an event listener to the "Movie bookings" button
+    const movieBookingButton = document.getElementById("movieBookingButton");
+    movieBookingButton.addEventListener("click", function () {
+
+        window.location.href = 'calendar';
+    });
+
+    // Add an event listener to the "Accessing Booking Details" button
+    const accessingBookingDetailsButton = document.getElementById("accessingBookingDetailsButton");
+    accessingBookingDetailsButton.addEventListener("click", function () {
+
+        window.location.href = 'BookingInformationLookup';
+    });
+
+</script>
+
+<script>
+    // Function to load the navigation bar using the fetch API
+    function loadNavigationBar() {
+        console.log('Fetching navigation bar...');
+        fetch('navbar')
+            .then(response => response.text())
+            .then(data => {
+                console.log('Fetched navigation bar successfully.');
+                document.querySelector('.menu-bar-container').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error loading navigation bar:', error);
+            });
+    }
+
+    // Call the loadNavigationBar function to insert the navigation bar
+    loadNavigationBar();
+</script>
+
+</body>
+</html>

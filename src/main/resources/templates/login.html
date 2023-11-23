@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login site - KinoXP</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .login-form {
+      flex: 1;
+      padding-right: 150px;
+    }
+
+    h1, h2 {
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      display: block;
+      width: 70%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button[type="submit"] {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: lightgrey;
+    }
+
+    /* Style for the image */
+    .logo-img {
+      max-width: 50%;
+      height: auto;
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>KinoXP - </h1>
+  <h2> Corporate portal </h2>
+  <div class="login-form">
+    <h2>Login</h2>
+    <form id="login-form" method="post">
+      <input type="text" id="username" name="username" placeholder="Username" required><br>
+      <input type="password" id="password" name="password" placeholder="Password" required><br>
+      <button type="submit">Login</button>
+    </form>
+    <div id="message"></div>
+  </div>
+</div>
+
+<script>
+  // Ensure that the JavaScript code runs only after the HTML document has been fully loaded and parsed.
+  document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("login-form");
+    const usernameInput = document.getElementById("username"); // Assuming the input has the id "username"
+    const passwordInput = document.getElementById("password"); // Assuming the input has the id "password"
+
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      const username = usernameInput.value;
+      const password = passwordInput.value;
+      console.log(username);
+
+      if (username && password) {
+        fetch("http://localhost:2020/api/login", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password
+          })
+        })
+                .then(response => {
+                  if (response.ok) {
+                    return response.json();
+                  }
+                  throw new Error('Network response was not ok.');
+                })
+                .then(data => {
+                  if (data && data.username) {
+                    window.sessionStorage.setItem('customer', JSON.stringify(data));
+                    console.log('Redirecting to homepage...');
+                    window.location.href = 'homepage.html'; // Use the correct absolute path here
+                  } else {
+                    alert('Login failed. Please try again.');
+                  }
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  alert('Login failed. Please try again.');
+                });
+
+      } else {
+        alert('Please enter both username and password.');
+      }
+    });
+  });
+
+</script>
+</body>
+</html>
