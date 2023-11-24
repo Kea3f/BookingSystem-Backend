@@ -1,23 +1,16 @@
+
 package com.example.bookingsystembackend.dto;
 
+
+
+
 public class LoginDto {
+
+
 
     private String username;
     private String password;
 
-    public String getUsernameOrEmail() {
-        return usernameOrEmail;
-    }
-
-    public void setUsernameOrEmail(String usernameOrEmail) {
-        this.usernameOrEmail = usernameOrEmail;
-    }
-
-    private String usernameOrEmail;
-
-
-
-    public LoginDto() {      }
     public String getUsername() {
         return username;
     }
@@ -33,5 +26,5 @@ public class LoginDto {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }
+

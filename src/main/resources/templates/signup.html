@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup</title>
+</head>
+<body>
+<h2>Signup</h2>
+<form id="signupForm">
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username" required><br><br>
+
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" required><br><br>
+
+  <label for="fullName">Full Name:</label>
+  <input type="text" id="fullName" name="fullName" required><br><br>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required><br><br>
+
+  <label for="phoneNo">Phone Number:</label>
+  <input type="tel" id="phoneNo" name="phoneNo" required><br><br>
+
+  <input type="submit" value="Signup">
+</form>
+
+<script>
+  document.getElementById('signupForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Fetch form data
+    const formData = new FormData(this);
+
+    // Convert form data to JSON object
+    const jsonData = {};
+    formData.forEach((value, key) => {
+      jsonData[key] = value;
+    });
+
+    // Make a POST request to the signup endpoint
+    fetch('http://localhost:2020/api/customer/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(jsonData)
+    })
+            .then(response => {
+              if (response.ok) {
+                // Successful signup
+                alert('Signup successful!');
+                console.log('Redirecting to homepage...');
+                window.location.href = 'homepage.html'; // Redirect to login page
+              } else {
+                // Signup failed
+                alert('Signup failed. Please try again.');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('Signup failed. Please try again.');
+            });
+  });
+
+</script>
+</body>
+</html>
