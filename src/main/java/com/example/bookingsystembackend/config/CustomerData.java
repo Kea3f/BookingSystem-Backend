@@ -1,64 +1,91 @@
-
 package com.example.bookingsystembackend.config;
 
-
+import com.example.bookingsystembackend.entity.Booking;
+import com.example.bookingsystembackend.entity.BookingTreatment;
 import com.example.bookingsystembackend.entity.Customer;
+import com.example.bookingsystembackend.entity.Treatment;
+import com.example.bookingsystembackend.repositories.BookingRepository;
+import com.example.bookingsystembackend.repositories.BookingTreatmentRepository;
 import com.example.bookingsystembackend.repositories.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.bookingsystembackend.repositories.TreatmentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 @Component
 public class CustomerData implements CommandLineRunner {
 
-    @Autowired
     CustomerRepository customerRepository;
+    TreatmentRepository treatmentRepository;
+    BookingRepository bookingRepository;
+    BookingTreatmentRepository bookingTreatmentRepository;
+
+    public CustomerData(BookingTreatmentRepository bookingTreatmentRepository, CustomerRepository customerRepository, TreatmentRepository treatmentRepository, BookingRepository bookingRepository) {
+        this.customerRepository = customerRepository;
+        this.treatmentRepository = treatmentRepository;
+        this.bookingRepository = bookingRepository;
+        this.bookingTreatmentRepository = bookingTreatmentRepository;
+    }
 
     @Override
+    public void run(String... args) {
 
-    public void run(String... args) throws Exception {
+        // Create and save treatments
+        Treatment treatment1 = new Treatment();
+        treatment1.setName("Single lashes");
+        treatment1.setDescription("Description of the treatment");
+        treatment1.setDuration(60);
+        treatment1.setPrice(400);
+        treatmentRepository.save(treatment1);
 
+        Treatment treatment2 = new Treatment();
+        treatment2.setName("Hybrid lashes");
+        treatment2.setDescription("Description of the treatment");
+        treatment2.setDuration(45);
+        treatment2.setPrice(400);
+        treatmentRepository.save(treatment2);
+
+        // Create and save customers
         Customer customer1 = new Customer();
-        customer1.setCustomerId(1);
         customer1.setUsername("username1");
         customer1.setPassword("Kea1234");
-        customer1.setFullName("Naja M.");
+        customer1.setFullName("Naja Moe");
         customer1.setEmail("najamoe@outlook.dk");
-        customer1.setPhoneNo(62622362);
+        customer1.setPhoneNo(62622367); // Change to String
 
         customerRepository.save(customer1);
 
         Customer customer2 = new Customer();
-        customer2.setCustomerId(2);
         customer2.setUsername("username2");
         customer2.setPassword("Kea1234");
-        customer2.setFullName("Sabrina E.");
+        customer2.setFullName("Sabrina Ebbesen");
         customer2.setEmail("Sabrina.ebbesen@gmail.com");
-        customer2.setPhoneNo(27710977);
-
+        customer2.setPhoneNo(27710977); // Change to String
         customerRepository.save(customer2);
 
-        Customer customer3 = new Customer();
-        customer3.setCustomerId(3);
-        customer3.setUsername("username3");
-        customer3.setPassword("Kea1234");
-        customer3.setFullName("Heval P.");
-        customer3.setEmail("HevalP@outlook.dk");
-        customer3.setPhoneNo(23263981);
+        // Create and save booking with treatments
+        Booking booking1 = new Booking();
+        booking1.setCustomer(customer1);
+        booking1.setBookingTreatments(new ArrayList<>()); // Initialize the list
 
-        customerRepository.save(customer3);
+        BookingTreatment bookingTreatment1 = new BookingTreatment();
+        bookingTreatment1.setBooking(booking1);
+        bookingTreatment1.setCustomer(customer1);
+        bookingTreatment1.setTreatment(treatment2);
 
-        Customer customer4 = new Customer();
-        customer4.setCustomerId(4);
-        customer4.setUsername("username4");
-        customer4.setPassword("Kea1234");
-        customer4.setFullName("Mathilde T.");
-        customer4.setEmail("Trendy@gmail.com");
-        customer4.setPhoneNo(25263840);
+        // Save the booking first
+        bookingRepository.save(booking1);
 
-        customerRepository.save(customer4);
+        // Now, save the BookingTreatment
+        bookingTreatmentRepository.save(bookingTreatment1);
 
+        booking1.getBookingTreatments().add(bookingTreatment1);
+        booking1.setBookingDate(LocalDate.now());
+        booking1.setStartTime(LocalTime.of(14, 0));
+        bookingRepository.save(booking1);
     }
 
 }
-
