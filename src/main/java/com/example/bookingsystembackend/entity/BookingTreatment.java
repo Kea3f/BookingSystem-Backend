@@ -4,28 +4,27 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
 
-@Getter
-@Setter
 @Entity
+@Setter
+@Getter
 @NoArgsConstructor
-public class Booking {
+@Table(name = "booking_treatments")
+public class BookingTreatment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bookingId;
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "booking_id")
+    private Booking booking;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "booking")
-    private List<BookingTreatment> bookingTreatments;
-
-    private LocalDate bookingDate;
-
-    private LocalTime startTime;
+    @ManyToOne
+    @JoinColumn(name = "treatment_id")
+    private Treatment treatment;
 }
