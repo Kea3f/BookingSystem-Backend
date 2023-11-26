@@ -29,7 +29,7 @@ public class TreatmentController {
         return treatmentService.readTreatments();
     }
 
-    @PutMapping("/edit")
+    @PutMapping("/edit{treatmentId}")
     public ResponseEntity<Treatment> editTreatment(@PathVariable int treatmentId, @RequestBody Treatment editTreatment){
         Treatment treatment = treatmentService.editTreatment(treatmentId, editTreatment);
         if (treatment != null){
@@ -43,7 +43,4 @@ public class TreatmentController {
         treatmentService.deleteTreatment(treatmentId);
         return  ResponseEntity.ok("Treatment deleted");
     }
-
-
-
 }
