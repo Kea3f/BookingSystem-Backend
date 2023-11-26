@@ -86,6 +86,27 @@ public class CustomerData implements CommandLineRunner {
         booking1.setBookingDate(LocalDate.now());
         booking1.setStartTime(LocalTime.of(14, 0));
         bookingRepository.save(booking1);
+
+        // Create and save booking with treatments
+        Booking booking2 = new Booking();
+        booking2.setCustomer(customer1);
+        booking2.setBookingTreatments(new ArrayList<>()); // Initialize the list
+
+        BookingTreatment bookingTreatment2 = new BookingTreatment();
+        bookingTreatment2.setBooking(booking2);
+        bookingTreatment2.setCustomer(customer1);
+        bookingTreatment2.setTreatment(treatment2);
+
+        // Save the booking first
+        bookingRepository.save(booking2);
+
+        // Now, save the BookingTreatment
+        bookingTreatmentRepository.save(bookingTreatment2);
+
+        booking2.getBookingTreatments().add(bookingTreatment2);
+        booking2.setBookingDate(LocalDate.now());
+        booking2.setStartTime(LocalTime.of(14, 0));
+        bookingRepository.save(booking2);
     }
 
 }
