@@ -19,28 +19,13 @@ public class Booking {
     private int bookingId;
 
     @ManyToOne
-    @JoinColumn(name = "customer_Id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-
-    // Use @ManyToMany for multiple treatments in one booking
-    @ManyToMany
-    @JoinTable(
-            name = "booking_treatments",
-            joinColumns = @JoinColumn(name = "booking_id"),
-            inverseJoinColumns = @JoinColumn(name = "treatment_id")
-    )
-    private List<Treatment> treatments;
+    @OneToMany(mappedBy = "booking")
+    private List<BookingTreatment> bookingTreatments;
 
     private LocalDate bookingDate;
 
     private LocalTime startTime;
-
-    public  LocalTime getEndTime(){
-        if (startTime != null && treatments != null){
-            int totalDuration = treatments.stream().mapToInt(Treatment::getDuration).sum();
-            return startTime.plusMinutes(totalDuration);
-        }
-        return null;
-    }
 }
