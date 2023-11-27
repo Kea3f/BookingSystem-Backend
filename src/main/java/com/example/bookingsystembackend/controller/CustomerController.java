@@ -1,81 +1,74 @@
+
 package com.example.bookingsystembackend.controller;
 
+
+
+import com.example.bookingsystembackend.dto.LoginDto;
+import com.example.bookingsystembackend.entity.Customer;
+import com.example.bookingsystembackend.service.CustomerService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
-@ComponentScan(basePackages = "com.example.kinoxp.Backend.controller")
-
-@Controller
+@RestController
 @CrossOrigin
-@RequestMapping("/customer")
+@RequestMapping("/api/customer")
 public class CustomerController {
 
+    private final CustomerService customerService;
 
-    @GetMapping("/login")
-    public String loginDisplay() {
-        return "login";
+    @Autowired
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
-    @GetMapping("/homepage")
-    public String homepageDisplay(){
-        return "homepage";
+    //Login
+    @PostMapping("/login")
+    public ResponseEntity<Customer> authenticateCustomer(@RequestBody LoginDto loginDto, HttpSession httpSession) {
+        String username = loginDto.getUsername();
+        String password = loginDto.getPassword();
+
+        Customer authenticatedCustomer = customerService.authenticateCustomer(username, password);
+
+        if (authenticatedCustomer != null) {
+            httpSession.setAttribute("customerId", authenticatedCustomer.getCustomerId());
+            return ResponseEntity.ok(authenticatedCustomer);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
-
-    @GetMapping("/customerInfo/{customerId}")
-    public String customerinfoDisplay(){
-        return "customerInfo";
+    //Signup
+    @PostMapping("/signup")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Customer signupCustomer(@RequestBody Customer customer) {
+        return customerService.signupCustomer(customer);
     }
 
-    @GetMapping("/customerList")
-    public String customerListDisplay(){
-        return "customerList";
+    @GetMapping("/info{customerId}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable int customerId) {
+        Customer customer = customerService.getCustomerById(customerId);
+        return ResponseEntity.ok(customer);
     }
 
-
-    @GetMapping("/deleteCustomer")
-    public String deleteCustomer(){
-        return "deleteCustomer";
+    @PutMapping("/update/{customerId}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable int customerId, @RequestBody Customer updatedCustomer) throws Exception {
+        Customer customer = customerService.updateCustomer(customerId, updatedCustomer);
+        return ResponseEntity.ok(customer);
     }
 
-    @GetMapping("/signupCustomer")
-    public String signupCustomer(){
-        return "signupCustomer";
+    @DeleteMapping("/delete/{customerId}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable int customerId) throws Exception {
+        customerService.deleteCustomer(customerId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-    @GetMapping("/editCustomer")
-    public String editCustomer() {
-        return "editCustomer";
-    }
-
-    @GetMapping("/navbar")
-    public String navbar(){
-        return "navbar";
-    }
-
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        // Invalidate the session
-        session.invalidate();
-        // Redirect to the login page or another appropriate page
-        return "redirect:/login";
-    }
-
-
-
-
-
-
-
-
 
 
 
 
 }
+
+

@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
-class CustomerRestControllerTest {
+class CustomerControllerTest {
 
     @Mock
     private CustomerService customerService;
@@ -25,7 +25,7 @@ class CustomerRestControllerTest {
     private HttpSession httpSession;
 
     @InjectMocks
-    private CustomerRestController customerController;
+    private CustomerController customerController;
 
     @BeforeEach
     void setUp() {
