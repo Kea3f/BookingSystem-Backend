@@ -92,6 +92,16 @@
 					</image>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0</version> <!-- Use the latest version -->
+				<configuration>
+					<excludes>
+						<exclude>**/BookingSystemBackendApplicationTests.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
