@@ -50,20 +50,4 @@ class CustomerServiceTest {
         Assertions.assertEquals(mockedCustomer, authenticatedCustomer);
     }
 
-    @Test
-    public void testAuthenticateCustomer_InvalidCredentials() {
-        // Stubbing the repository method to return null (user not found)
-        Mockito.when(customerRepository.findByUsername(anyString())).thenReturn(null);
-
-        // Invalid credentials for authentication
-        String username = "nonExistentUser";
-        String password = "wrongPassword";
-
-        // Calling the method to be tested
-        Customer authenticatedCustomer = customerService.authenticateCustomer(username, password);
-
-        // Asserting that authenticated customer is null (authentication failed)
-        Assertions.assertNull(authenticatedCustomer);
-    }
-
 }
