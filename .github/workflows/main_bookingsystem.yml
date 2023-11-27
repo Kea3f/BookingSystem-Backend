@@ -46,4 +46,4 @@ jobs:
         with:
           app-name: 'bookingsystem'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_427038C5938743F2BD6ED5F88F9C2261 }}
-          package: 'target/BookingSystem-Backend-0.0.1-SNAPSHOT.jar'
+          package: 'BookingSystem-Backend/target/BookingSystem-Backend-0.0.1-SNAPSHOT.jar'
