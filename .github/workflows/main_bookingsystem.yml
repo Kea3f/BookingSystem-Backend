@@ -32,7 +32,8 @@ jobs:
     needs: build
     environment:
       name: 'Production'
-    
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -45,18 +46,10 @@ jobs:
       - name: List artifact contents
         run: ls -R ${{ github.workspace }}/target
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
+      
+      - name: Use Azure App Service Deploy
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'bookingsystem'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_427038C5938743F2BD6ED5F88F9C2261 }}
           package: '${{ github.workspace }}/target/*.jar'
-
-      - name: Set deployment output variable
-        id: set-deployment-output
-        run: echo "webapp-url=${{ steps.deploy-to-webapp.outputs.webapp-url }}" >> $GITHUB_ENV
-
-# This ensures the webapp-url is available as an output for subsequent steps or jobs
-outputs:
-  webapp-url: ${{ steps.set-deployment-output.outputs.webapp-url }}
