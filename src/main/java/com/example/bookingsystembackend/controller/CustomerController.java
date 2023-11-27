@@ -5,6 +5,7 @@ package com.example.bookingsystembackend.controller;
 
 import com.example.bookingsystembackend.dto.LoginDto;
 import com.example.bookingsystembackend.entity.Customer;
+import com.example.bookingsystembackend.repositories.CustomerRepository;
 import com.example.bookingsystembackend.service.CustomerService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,12 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, CustomerRepository customerRepository) {
         this.customerService = customerService;
+        this.customerRepository = customerRepository;
     }
 
     //Login
@@ -65,7 +68,6 @@ public class CustomerController {
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
 
 
