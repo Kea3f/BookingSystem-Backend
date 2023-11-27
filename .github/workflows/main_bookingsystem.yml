@@ -42,7 +42,7 @@ jobs:
           name: java-app
 
       - name: List artifact contents
-        run: ls -R java-app
+        run: ls -R ${{ github.workspace }}/target
 
       
       - name: Use Azure App Service Deploy
@@ -50,5 +50,5 @@ jobs:
         with:
           app-name: 'bookingsystem'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_427038C5938743F2BD6ED5F88F9C2261 }}
-          package: 'java-app/*.jar'
+          package: '${{ github.workspace }}/target/*.jar'
     
