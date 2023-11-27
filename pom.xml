@@ -53,8 +53,6 @@
 		</dependency>
 
 
-
-
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
@@ -72,9 +70,6 @@
 			<version>0.11.5</version>
 			<scope>runtime</scope>
 		</dependency>
-
-
-
     </dependencies>
 
 	<build>
@@ -95,16 +90,6 @@
 					<image>
 						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
 					</image>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0</version> <!-- Use the latest version -->
-				<configuration>
-					<configuration>
-    <testFailureIgnore>true</testFailureIgnore>
-</configuration>
 				</configuration>
 			</plugin>
 		</plugins>
