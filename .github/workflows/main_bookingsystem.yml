@@ -1,4 +1,4 @@
- name: Build and deploy JAR app to Azure Web App - bookingsystem
+name: Build and deploy JAR app to Azure Web App - bookingsystem
 
 on:
   push:
@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Java version
         uses: actions/setup-java@v1
@@ -20,12 +19,9 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        run: |
-          mvn clean install || echo "Maven build failed. Check the build logs for details."
-        continue-on-error: true
+        run: mvn clean install
 
       - name: Upload artifact for deployment job
-        if: success()
         uses: actions/upload-artifact@v3
         with:
           name: java-app
@@ -50,4 +46,3 @@ jobs:
           app-name: 'bookingsystem'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_427038C5938743F2BD6ED5F88F9C2261 }}
           package: '${{ github.workspace }}/target/*.jar'
-
