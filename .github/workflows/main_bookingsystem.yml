@@ -44,12 +44,11 @@ jobs:
         run: ls -R ${{ github.workspace }}
 
       - name: List artifact contents
-        run: ls -R ${{ github.workspace }}/target
+        run: ls -R ${{ github.workspace }}/java-app
 
-      
       - name: Use Azure App Service Deploy
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'bookingsystem'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_427038C5938743F2BD6ED5F88F9C2261 }}
-          package: '${{ github.workspace }}/target/*.jar'
+          package: ${{ github.workspace }}/java-app/*.jar
