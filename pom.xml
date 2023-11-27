@@ -103,6 +103,9 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<finalName>BookingSystem</finalName>
+
 	</build>
 
 
