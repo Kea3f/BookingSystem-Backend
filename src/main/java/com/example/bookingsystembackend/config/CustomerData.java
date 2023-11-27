@@ -54,7 +54,7 @@ public class CustomerData implements CommandLineRunner {
         customer1.setPassword("Kea1234");
         customer1.setFullName("Naja Moe");
         customer1.setEmail("najamoe@outlook.dk");
-        customer1.setPhoneNo(62622367); // Change to String
+        customer1.setPhoneNo(62622367);
 
         customerRepository.save(customer1);
 
@@ -63,7 +63,7 @@ public class CustomerData implements CommandLineRunner {
         customer2.setPassword("Kea1234");
         customer2.setFullName("Sabrina Ebbesen");
         customer2.setEmail("Sabrina.ebbesen@gmail.com");
-        customer2.setPhoneNo(27710977); // Change to String
+        customer2.setPhoneNo(27710977);
         customerRepository.save(customer2);
 
         // Create and save booking with treatments

@@ -18,14 +18,25 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    //Logic for login
+    // Logic for login
     public Customer authenticateCustomer(String username, String password) {
-        Customer customer = customerRepository.findByUsername(username);
-        if (customer != null && customer.getPassword().equals(password)) {
-            return customer;
+        if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username or password cannot be null or empty");
         }
-        return null;
+
+        Customer customer = customerRepository.findByUsername(username);
+        if (customer == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+
+        if (customer.getPassword().equals(password)) {
+            return customer; // Return authenticated customer
+        } else {
+            throw new IllegalArgumentException("Incorrect password");
+        }
+
     }
+
 
     //signin
     public Customer signupCustomer(Customer customer) {
@@ -33,8 +44,6 @@ public class CustomerService {
 
         return customerRepository.save(customer);
     }
-
-
 
 
     public Customer getCustomerById(int customerId) {
@@ -54,6 +63,8 @@ public class CustomerService {
                 existingCustomer.setFullName(updatedCustomer.getFullName());
                 existingCustomer.setPhoneNo(updatedCustomer.getPhoneNo());
                 existingCustomer.setEmail(updatedCustomer.getEmail());
+                existingCustomer.setUsername(updatedCustomer.getUsername());
+                existingCustomer.setPassword(updatedCustomer.getPassword());
 
                 // Save and return the updated customer
                 return customerRepository.save(existingCustomer);
