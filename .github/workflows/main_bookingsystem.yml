@@ -44,7 +44,7 @@ jobs:
         run: ls -R ${{ github.workspace }}
 
       - name: List artifact contents
-        run: ls -R ${{ github.workspace }}/java-app
+        run: ls -R ${{ github.workspace }}/artifacts
 
       - name: Use Azure App Service Deploy
         uses: azure/webapps-deploy@v2
