@@ -35,9 +35,9 @@ class CustomerControllerTest {
     @Test
     void testAuthenticateCustomer() {
         // Arrange
-        LoginDto loginDto = new LoginDto("username", "password");
+        LoginDto loginDto = new LoginDto("email", "password");
         Customer authenticatedCustomer = new Customer();
-        when(customerService.authenticateCustomer("username", "password")).thenReturn(authenticatedCustomer);
+        when(customerService.authenticateCustomer("email", "password")).thenReturn(authenticatedCustomer);
 
         // Act
         ResponseEntity<Customer> result = customerController.authenticateCustomer(loginDto, httpSession);
@@ -52,8 +52,8 @@ class CustomerControllerTest {
     @Test
     void testAuthenticateCustomerUnauthorized() {
         // Arrange
-        LoginDto loginDto = new LoginDto("invalidUsername", "invalidPassword");
-        when(customerService.authenticateCustomer("invalidUsername", "invalidPassword")).thenReturn(null);
+        LoginDto loginDto = new LoginDto("invalidEmail", "invalidPassword");
+        when(customerService.authenticateCustomer("invalidEmail", "invalidPassword")).thenReturn(null);
 
         // Act
         ResponseEntity<Customer> result = customerController.authenticateCustomer(loginDto, httpSession);
