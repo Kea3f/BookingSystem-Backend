@@ -33,18 +33,18 @@ class CustomerServiceTest {
     public void testAuthenticateCustomer_ValidCredentials() {
         // Mocking a customer
         Customer mockedCustomer = new Customer();
-        mockedCustomer.setUsername("testUser");
+        mockedCustomer.setEmail("testEmail");
         mockedCustomer.setPassword("testPassword");
 
         // Stubbing the repository method to return the mocked customer
-        Mockito.when(customerRepository.findByUsername(anyString())).thenReturn(mockedCustomer);
+        Mockito.when(customerRepository.findByEmail(anyString())).thenReturn(mockedCustomer);
 
         // Valid credentials for authentication
-        String username = "testUser";
+        String email = "testEmail";
         String password = "testPassword";
 
         // Calling the method to be tested
-        Customer authenticatedCustomer = customerService.authenticateCustomer(username, password);
+        Customer authenticatedCustomer = customerService.authenticateCustomer(email, password);
 
         // Asserting that the authenticated customer matches the mocked customer
         Assertions.assertEquals(mockedCustomer, authenticatedCustomer);
