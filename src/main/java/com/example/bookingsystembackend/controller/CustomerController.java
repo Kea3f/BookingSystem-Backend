@@ -20,21 +20,21 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
 
     private final CustomerService customerService;
-    private final CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerController(CustomerService customerService, CustomerRepository customerRepository) {
+    public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
-        this.customerRepository = customerRepository;
+
     }
 
     //Login
+    @CrossOrigin(origins = "http://localhost:63342")
     @PostMapping("/login")
     public ResponseEntity<Customer> authenticateCustomer(@RequestBody LoginDto loginDto, HttpSession httpSession) {
-        String username = loginDto.getUsername();
+        String email = loginDto.getEmail();
         String password = loginDto.getPassword();
 
-        Customer authenticatedCustomer = customerService.authenticateCustomer(username, password);
+        Customer authenticatedCustomer = customerService.authenticateCustomer(email, password);
 
         if (authenticatedCustomer != null) {
             httpSession.setAttribute("customerId", authenticatedCustomer.getCustomerId());
@@ -68,9 +68,6 @@ public class CustomerController {
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
-
 }
 
 

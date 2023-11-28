@@ -19,12 +19,12 @@ public class CustomerService {
     }
 
     // Logic for login
-    public Customer authenticateCustomer(String username, String password) {
-        if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
-            throw new IllegalArgumentException("Username or password cannot be null or empty");
+    public Customer authenticateCustomer(String email, String password) {
+        if (email == null || password == null || email.trim().isEmpty() || password.trim().isEmpty()) {
+            throw new IllegalArgumentException("Email or password cannot be null or empty");
         }
 
-        Customer customer = customerRepository.findByUsername(username);
+        Customer customer = customerRepository.findByEmail(email);
         if (customer == null) {
             throw new IllegalArgumentException("User not found");
         }
