@@ -27,20 +27,20 @@ class CustomerRepositoryTest {
 
     //Test for retrieving a customer by their username in the databse
     @Test
-    void testFindByUsername() {
+    void testFindByEmail() {
         // Mocking a customer for testing
         Customer mockedCustomer = new Customer();
-        mockedCustomer.setUsername("testUser");
+        mockedCustomer.setEmail("testEmail");
         mockedCustomer.setPassword("testPassword"); // Ideally, this should be hashed in real scenarios
 
         // Stubbing the behavior of the repository method
-        when(customerRepository.findByUsername("testUser")).thenReturn(mockedCustomer);
+        when(customerRepository.findByEmail("testEmail")).thenReturn(mockedCustomer);
 
         // Call the service method that uses findByUsername
-        Customer retrievedCustomer = customerService.authenticateCustomer("testUser", "testPassword");
+        Customer retrievedCustomer = customerService.authenticateCustomer("testEmail", "testPassword");
 
         // Check if the retrieved customer matches the expected customer
-        assertEquals("testUser", retrievedCustomer.getUsername());
+        assertEquals("testEmail", retrievedCustomer.getEmail());
         // Add more assertions based on your expected customer properties
     }
 
