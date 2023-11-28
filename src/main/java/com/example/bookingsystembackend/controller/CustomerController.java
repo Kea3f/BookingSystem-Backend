@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/customer")
 public class CustomerController {
 
@@ -28,7 +27,6 @@ public class CustomerController {
     }
 
     //Login
-    @CrossOrigin(origins = "http://localhost:63342")
     @PostMapping("/login")
     public ResponseEntity<Customer> authenticateCustomer(@RequestBody LoginDto loginDto, HttpSession httpSession) {
         String email = loginDto.getEmail();
