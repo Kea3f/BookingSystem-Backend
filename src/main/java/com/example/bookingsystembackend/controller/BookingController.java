@@ -1,6 +1,7 @@
 package com.example.bookingsystembackend.controller;
 
 
+import com.example.bookingsystembackend.dto.CustomerBookingDto;
 import com.example.bookingsystembackend.entity.Booking;
 import com.example.bookingsystembackend.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,10 @@ public class BookingController {
         return bookingService.readBookings();
     }
 
-    @GetMapping("/customer/{customerId}")
-    public ResponseEntity<List<Booking>> getBookingsForCustomer(@PathVariable int customerId) {
-        List<Booking> bookings = bookingService.getBookingsForCustomer(customerId);
-        return ResponseEntity.ok(bookings);
+    @GetMapping("/bookings/{customerId}")
+    public ResponseEntity<List<CustomerBookingDto>> getBookingsForCustomer(@PathVariable int customerId) {
+        List<CustomerBookingDto> bookingDtos = bookingService.getCustomerBookingsDtoForCustomer(customerId);
+        return ResponseEntity.ok(bookingDtos);
     }
     @DeleteMapping("/delete/{bookingId}")
     public ResponseEntity<String> deleteBooking(@PathVariable int bookingId){
