@@ -30,6 +30,11 @@ public class BookingController {
         return bookingService.readBookings();
     }
 
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<Booking>> getBookingsForCustomer(@PathVariable int customerId) {
+        List<Booking> bookings = bookingService.getBookingsForCustomer(customerId);
+        return ResponseEntity.ok(bookings);
+    }
     @DeleteMapping("/delete/{bookingId}")
     public ResponseEntity<String> deleteBooking(@PathVariable int bookingId){
         bookingService.deleteBooking(bookingId);

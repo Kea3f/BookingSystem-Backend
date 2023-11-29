@@ -26,6 +26,10 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
+    public List<Booking> getBookingsForCustomer(int customerId){
+        return bookingRepository.findAllByCustomerId(customerId);
+    }
+
     public void deleteBooking(int bookingId) {
         bookingRepository.deleteById(bookingId);
     }

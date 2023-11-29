@@ -27,4 +27,5 @@ public class BookingTreatment {
     @ManyToOne
     @JoinColumn(name = "treatment_id")
     private Treatment treatment;
+
 }
