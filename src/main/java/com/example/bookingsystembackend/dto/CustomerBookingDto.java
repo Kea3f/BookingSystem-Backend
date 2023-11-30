@@ -15,14 +15,16 @@ public class CustomerBookingDto {
     private int treatmentId;
     private int CustomerId;
     private LocalDate bookingDate;
+
+    public CustomerBookingDto(int bookingId, int treatmentId, LocalDate bookingDate, LocalTime startTime) {
+        this.bookingId = bookingId;
+        this.treatmentId = treatmentId;
+        this.bookingDate = bookingDate;
+        this.startTime = startTime;
+    }
+
     private LocalTime startTime;
     private String treatmentName;
 
-    public CustomerBookingDto(int bookingId, int treatmentId, LocalDate bookingDate, LocalTime startTime, String treatmentName) {
-        this.bookingId = bookingId;
-        this.bookingDate = bookingDate;
-        this.treatmentId = treatmentId;
-        this.startTime = startTime;
-        this.treatmentName = treatmentName;
-    }
+
 }
