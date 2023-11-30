@@ -21,19 +21,16 @@ public class Booking {
     private int bookingId;
 
     @ManyToOne
+    @JoinColumn(name = "customer_id") // Mapping to the Customer entity
     private Customer customer;
-    private int customerId;
 
     @ManyToOne
-    @JoinColumn(name = "treatment_id")
+    @JoinColumn(name = "treatment_id") // Mapping to the Treatment entity
     private Treatment treatment;
 
     private LocalDate bookingDate;
-
     private LocalTime startTime;
-
     private LocalTime endTime;
-
     private boolean available;
 
 

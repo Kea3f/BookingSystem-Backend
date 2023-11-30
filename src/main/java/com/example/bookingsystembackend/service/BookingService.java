@@ -97,8 +97,6 @@ public class BookingService {
         return true; // Time slot is available
     }
 
-
-
     // Method to create a booking for a customer (user)
     public Booking createBooking(int customerId, int treatmentId, LocalDate bookingDate, LocalTime startTime) {
         Customer customer = customerRepository.findByCustomerId(customerId);
