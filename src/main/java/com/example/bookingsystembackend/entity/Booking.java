@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -19,13 +21,21 @@ public class Booking {
     private int bookingId;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
     private Customer customer;
+    private int customerId;
 
-    @OneToMany(mappedBy = "booking")
-    private List<BookingTreatment> bookingTreatments;
+    @ManyToOne
+    @JoinColumn(name = "treatment_id")
+    private Treatment treatment;
 
     private LocalDate bookingDate;
 
     private LocalTime startTime;
+
+    private LocalTime endTime;
+
+    private boolean available;
+
+
+
 }

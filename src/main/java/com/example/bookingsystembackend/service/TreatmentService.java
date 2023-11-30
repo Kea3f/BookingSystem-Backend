@@ -17,14 +17,13 @@ public class TreatmentService {
     public TreatmentService(TreatmentRepository treatmentRepository) {
         this.treatmentRepository = treatmentRepository;
     }
+
+    //Creating treatment (for admin)
     public Treatment createTreatment(Treatment treatment){
         return treatmentRepository.save(treatment);
     }
 
-    public List<Treatment> readTreatments(){
-        return treatmentRepository.findAll();
-    }
-
+    //Editing selected treatment (for admin)
     public Treatment editTreatment (int treatmentId, Treatment editedTreatement){
         Treatment existingTreatment = treatmentRepository.findByTreatmentId(treatmentId);
         if(existingTreatment != null){
@@ -38,9 +37,23 @@ public class TreatmentService {
         return null;
     }
 
+    //Deleting selected treatment (for admin)
     public void deleteTreatment(int treatmentId) {
         treatmentRepository.deleteById(treatmentId);
     }
+
+
+    //Showing all treatments (user)
+    public List<Treatment> getAllTreatments(){
+        return treatmentRepository.findAll();
+    }
+
+    //Selecting a wanted treatment (for user)
+    //TODO skal session implemteres her for at forbinde kunder til valgt behandling
+    public Treatment getTreatmentById(int treatmentId) {
+        return treatmentRepository.findByTreatmentId(treatmentId);
+    }
+
 
 
 }

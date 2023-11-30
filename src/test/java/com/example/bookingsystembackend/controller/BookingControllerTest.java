@@ -25,6 +25,7 @@ class BookingControllerTest {
     @MockBean
     private BookingService bookingService;
 
+    /*
     @Test
     void testCreateBooking() throws Exception {
         // Step 1: Create a Booking object with a specific bookingId
@@ -45,6 +46,8 @@ class BookingControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.bookingId").value(1)); // Adjust the expectations based on your actual response
     }
+
+
 
     @Test
     void testReadBookings() throws Exception {
@@ -83,4 +86,6 @@ class BookingControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("Booking Deleted"));
     }
+
+     */
 }

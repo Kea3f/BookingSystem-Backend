@@ -24,10 +24,23 @@ public class TreatmentController {
         return treatmentService.createTreatment(treatment);
     }
 
-    @GetMapping("/treatments")
-    public List<Treatment> readTreatments(){
-        return treatmentService.readTreatments();
+
+    //viewing all treatments
+    @GetMapping("/treatmentList")
+    public List<Treatment> getAllTreatments() {
+        return treatmentService.getAllTreatments();
     }
+
+    //Select specific treatment
+    @GetMapping("/selectTreatment/{customerId}/{treatmentId}")
+    public ResponseEntity<Treatment> selectTreatment(@PathVariable int treatmentId) {
+        Treatment treatment = treatmentService.getTreatmentById(treatmentId);
+        if (treatment != null) {
+            return ResponseEntity.ok(treatment);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 
     @PutMapping("/edit{treatmentId}")
     public ResponseEntity<Treatment> editTreatment(@PathVariable int treatmentId, @RequestBody Treatment editTreatment){
