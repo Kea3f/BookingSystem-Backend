@@ -1,10 +1,7 @@
 
 package com.example.bookingsystembackend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +20,7 @@ public class Customer {
     private String fullName;
     private int phoneNo;
     private String email;
-  }
+}
 
 
 

@@ -1,7 +1,9 @@
 package com.example.bookingsystembackend.service;
 
 import com.example.bookingsystembackend.entity.Customer;
+import com.example.bookingsystembackend.entity.Treatment;
 import com.example.bookingsystembackend.repositories.CustomerRepository;
+import com.example.bookingsystembackend.repositories.TreatmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    private TreatmentRepository treatmentRepository;
 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;

@@ -1,9 +1,6 @@
 package com.example.bookingsystembackend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +17,11 @@ public class Treatment {
 
     private String name;
     private String description;
-    private int duration;
+    private int duration;  // Duration in minutes
     private double price;
+
+    @ManyToOne
+    private Customer customer;
+
 
 }
