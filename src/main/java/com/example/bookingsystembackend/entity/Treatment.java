@@ -20,8 +20,16 @@ public class Treatment {
     private int duration;  // Duration in minutes
     private double price;
 
+    public Treatment(int treatmentId, String name, String description, int duration, double price) {
+        this.treatmentId = treatmentId;
+        this.name = name;
+        this.description = description;
+        this.duration = duration;
+        this.price = price;
+    }
+
+
     @ManyToOne
     private Customer customer;
-
 
 }

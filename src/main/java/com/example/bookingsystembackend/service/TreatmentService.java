@@ -43,7 +43,7 @@ public class TreatmentService {
     }
 
 
-    //Showing all treatments
+    //Showing all treatments (user)
     public List<Treatment> getAllTreatments(){
         return treatmentRepository.findAll();
     }

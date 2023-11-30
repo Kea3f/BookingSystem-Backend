@@ -68,7 +68,7 @@ public class BookingService {
 
     }
 
-    //Showing all available bookings for a specific day
+    //Showing all available bookings for a specific day (user)
     public List<LocalTime> getAvailableBookingTimesForDay(LocalDate bookingDate) {
         List<LocalTime> availableTimeList = new ArrayList<>();
 
@@ -86,23 +86,38 @@ public class BookingService {
         return availableTimeList;
     }
 
-    // Method to create a booking for a customer
+    private boolean isTimeSlotAvailable(LocalDate bookingDate, LocalTime startTime) {
+        List<Booking> bookingsAtTime = bookingRepository.findStartTimesByBookingDateAndAvailableTrue(bookingDate);
+
+        for (Booking booking : bookingsAtTime) {
+            if (booking.getStartTime().equals(startTime)) {
+                return false; // Time slot is not available
+            }
+        }
+        return true; // Time slot is available
+    }
+
+
+
+    // Method to create a booking for a customer (user)
     public Booking createBooking(int customerId, int treatmentId, LocalDate bookingDate, LocalTime startTime) {
         Customer customer = customerRepository.findByCustomerId(customerId);
         Treatment treatment = treatmentRepository.findByTreatmentId(treatmentId);
 
         if (customer != null && treatment != null) {
-            // Check if the selected time slot is available
-            List<Booking> bookingsAtTime = bookingRepository.findStartTimesByBookingDateAndAvailableTrue(bookingDate);
+            boolean isTimeSlotAvailable = isTimeSlotAvailable(bookingDate, startTime);
 
-            if (bookingsAtTime.isEmpty()) {
-                // Time slot is available, create the booking
+            if (isTimeSlotAvailable) {
                 Booking newBooking = new Booking();
                 newBooking.setCustomer(customer);
                 newBooking.setTreatment(treatment);
                 newBooking.setBookingDate(bookingDate);
                 newBooking.setStartTime(startTime);
                 newBooking.setAvailable(false); // Assuming it's not available once booked
+
+                // Save the new booking under the customer's profile
+                customer.addBooking(newBooking);
+                customerRepository.save(customer);
 
                 return bookingRepository.save(newBooking);
             } else {
@@ -113,11 +128,9 @@ public class BookingService {
         }
     }
 
-
-
-
-
 }
+
+
 
 
 
