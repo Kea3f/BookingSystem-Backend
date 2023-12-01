@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class TreatmentControllerTest {
-/*
+
     @Mock
     private TreatmentService treatmentService;
 
@@ -117,5 +117,5 @@ class TreatmentControllerTest {
         verify(treatmentService, times(1)).deleteTreatment(treatmentId);
     }
 
- */
+
 }

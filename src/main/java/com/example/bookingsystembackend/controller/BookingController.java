@@ -3,6 +3,7 @@ package com.example.bookingsystembackend.controller;
 
 import com.example.bookingsystembackend.dto.CustomerBookingDto;
 import com.example.bookingsystembackend.entity.Booking;
+import com.example.bookingsystembackend.entity.Customer;
 import com.example.bookingsystembackend.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,8 +34,8 @@ public class BookingController {
     }
 
     @GetMapping("/bookings/{customerId}")
-    public ResponseEntity<List<CustomerBookingDto>> getBookingsForCustomer(@PathVariable int customerId) {
-        List<CustomerBookingDto> bookingDtos = bookingService.getCustomerBookingsDtoForCustomer(customerId);
+    public ResponseEntity<List<CustomerBookingDto>> getBookingsForCustomer(@PathVariable Customer customer) {
+        List<CustomerBookingDto> bookingDtos = bookingService.getCustomerBookingsDtoForCustomer(customer);
         return ResponseEntity.ok(bookingDtos);
     }
     @DeleteMapping("/delete/{bookingId}")
