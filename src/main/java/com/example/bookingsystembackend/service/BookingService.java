@@ -51,8 +51,8 @@ public class BookingService {
     }
 
     //Showing your own booking as a customer (for user)
-    public List<CustomerBookingDto> getCustomerBookingsDtoForCustomer(int customerId) {
-        List<Booking> bookings = bookingRepository.findAllByCustomerId(customerId);
+    public List<CustomerBookingDto> getCustomerBookingsDtoForCustomer(Customer customer) {
+        List<Booking> bookings = bookingRepository.findAllByCustomer(customer);
         return bookings.stream()
                 .map(this::convertToCustomerBookingDto)
                 .collect(Collectors.toList());
