@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -28,8 +31,9 @@ public class Treatment {
         this.price = price;
     }
 
+    @OneToMany(mappedBy = "treatment", cascade = CascadeType.ALL)
+    private List<Booking> bookings = new ArrayList<>();
 
-    @ManyToOne
-    private Customer customer;
+
 
 }

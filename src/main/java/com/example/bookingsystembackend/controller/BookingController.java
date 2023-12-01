@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
@@ -42,26 +43,38 @@ public class BookingController {
         return ResponseEntity.ok("Booking Deleted");
     }
 
-    // Endpoint to get available booking times for a specific day
+    @PostMapping("/create")
+    public ResponseEntity<Object> createBooking(
+            @RequestParam int customerId,
+            @RequestParam int treatmentId,
+            @RequestParam String bookingDate,
+            @RequestParam String startTime
+    ) {
+        try {
+            LocalDate parsedBookingDate = LocalDate.parse(bookingDate);
+            LocalTime parsedStartTime = LocalTime.parse(startTime);
+
+            Booking newBooking = bookingService.createBooking(
+                    customerId,
+                    treatmentId,
+                    parsedBookingDate,
+                    parsedStartTime
+            );
+            return ResponseEntity.ok(newBooking);
+        } catch (DateTimeParseException | IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid input format or " + e.getMessage());
+        }
+    }
+
     @GetMapping("/available-times")
-    public ResponseEntity<List<LocalTime>> getAvailableBookingTimes(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate bookingDate) {
-        List<LocalTime> availableTimes = bookingService.getAvailableBookingTimesForDay(bookingDate);
-        return ResponseEntity.ok(availableTimes);
+    public ResponseEntity<Object> getAvailableBookingTimesForDay(@RequestParam String bookingDate) {
+        try {
+            LocalDate parsedBookingDate = LocalDate.parse(bookingDate);
+            List<LocalTime> availableTimes = bookingService.getAvailableBookingTimesForDay(parsedBookingDate);
+            return ResponseEntity.ok(availableTimes);
+        } catch (DateTimeParseException | IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid input format or " + e.getMessage());
+        }
     }
-
-    // Endpoint to create a booking for a customer
-    @PostMapping("/create/{treatmentId}/{customerId}")
-    public ResponseEntity<Booking> createBooking(@RequestBody CustomerBookingDto customerBookingDto) {
-        Booking newBooking = bookingService.createBooking(
-                customerBookingDto.getCustomerId(),
-                customerBookingDto.getTreatmentId(),
-                customerBookingDto.getBookingDate(),
-                customerBookingDto.getStartTime()
-        );
-        return ResponseEntity.status(HttpStatus.CREATED).body(newBooking);
-    }
-
-
-
 
 }

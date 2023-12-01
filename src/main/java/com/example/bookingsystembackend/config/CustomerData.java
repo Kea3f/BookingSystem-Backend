@@ -28,29 +28,6 @@ public class CustomerData implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        // Create and save customers
-        Customer customer1 = new Customer();
-        customer1.setUsername("username1");
-        customer1.setPassword("Kea1234");
-        customer1.setFullName("Naja Moe");
-        customer1.setEmail("najamoe@outlook.dk");
-        customer1.setPhoneNo(62622367);
-
-        customerRepository.save(customer1);
-
-        Customer customer2 = new Customer();
-        customer2.setUsername("username2");
-        customer2.setPassword("Kea1234");
-        customer2.setFullName("Sabrina Ebbesen");
-        customer2.setEmail("Sabrina.ebbesen@gmail.com");
-        customer2.setPhoneNo(27710977);
-        customerRepository.save(customer2);
-
-
-
-
-
-
         Treatment treatment1 = new Treatment();
         treatment1.setName("Single lashes");
         treatment1.setDescription("Description of the treatment");
@@ -82,10 +59,31 @@ public class CustomerData implements CommandLineRunner {
 
 
 
+        // Create and save customers
+        Customer customer1 = new Customer();
+        customer1.setCustomerId(1);
+        customer1.setUsername("username1");
+        customer1.setPassword("Kea1234");
+        customer1.setFullName("Naja Moe");
+        customer1.setEmail("najamoe@outlook.dk");
+        customer1.setPhoneNo(62622367);
+        customerRepository.save(customer1);
+
+        Customer customer2 = new Customer();
+        customer2.setCustomerId(2);
+        customer2.setUsername("username2");
+        customer2.setPassword("Kea1234");
+        customer2.setFullName("Sabrina Ebbesen");
+        customer2.setEmail("Sabrina.ebbesen@gmail.com");
+        customer2.setPhoneNo(27710977);
+        customerRepository.save(customer2);
+
+
+
 
         Booking booking1 = new Booking();
-        booking1.setCustomer(customer1);
         booking1.setTreatment(treatment1);
+        booking1.setCustomer(customer1);
         booking1.setBookingDate(LocalDate.now()); // Just an example date, adjust as needed
         booking1.setStartTime(LocalTime.of(9, 0)); // Set the start time of the booking
         booking1.setEndTime(booking1.getStartTime().plusMinutes(treatment1.getDuration())); // Calculate end time based on treatment duration
@@ -93,8 +91,8 @@ public class CustomerData implements CommandLineRunner {
         bookingRepository.save(booking1);
 
         Booking booking2 = new Booking();
-        booking2.setCustomer(customer2);
         booking2.setTreatment(treatment2);
+        booking2.setCustomer(customer2);
         booking2.setBookingDate(LocalDate.now().plusDays(1)); // Just an example date, adjust as needed
         booking2.setStartTime(LocalTime.of(14, 0)); // Set the start time of the booking
         booking2.setEndTime(booking2.getStartTime().plusMinutes(treatment2.getDuration())); // Calculate end time based on treatment duration
