@@ -28,33 +28,93 @@ public class CustomerData implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        Treatment treatment1 = new Treatment();
-        treatment1.setName("Single lashes");
-        treatment1.setDescription("Description of the treatment");
-        treatment1.setDuration(60);
-        treatment1.setPrice(400);
-        treatmentRepository.save(treatment1);
+        // Single lashes treatments
+        Treatment singleNewSet = new Treatment();
+        singleNewSet.setName("Single lashes - New Set");
+        singleNewSet.setDescription("Application of a new set of single lashes.");
+        singleNewSet.setDuration(90);
+        singleNewSet.setPrice(400);
+        treatmentRepository.save(singleNewSet);
 
-        Treatment treatment2 = new Treatment();
-        treatment2.setName("Hybrid lashes");
-        treatment2.setDescription("Description of the treatment");
-        treatment2.setDuration(45);
-        treatment2.setPrice(400);
-        treatmentRepository.save(treatment2);
+        Treatment singleRefillLarge = new Treatment();
+        singleRefillLarge.setName("Single lashes - Large Refill");
+        singleRefillLarge.setDescription("Refill for single lashes with 40-50 lashes remaining within 3 weeks.");
+        singleRefillLarge.setDuration(60);
+        singleRefillLarge.setPrice(350);
+        treatmentRepository.save(singleRefillLarge);
 
-        Treatment treatment3 = new Treatment();
-        treatment3.setName("Volume lashes");
-        treatment3.setDescription("Description of the treatment");
-        treatment3.setDuration(75);
-        treatment3.setPrice(500);
-        treatmentRepository.save(treatment3);
+        Treatment singleRefillSmall = new Treatment();
+        singleRefillSmall.setName("Single lashes - Small Refill");
+        singleRefillSmall.setDescription("Refill for single lashes with 20-30% remaining within 2 weeks.");
+        singleRefillSmall.setDuration(60);
+        singleRefillSmall.setPrice(300);
+        treatmentRepository.save(singleRefillSmall);
 
-        Treatment treatment4 = new Treatment();
-        treatment4.setName("YY lashes");
-        treatment4.setDescription("Description of the treatment");
-        treatment4.setDuration(60);
-        treatment4.setPrice(450);
-        treatmentRepository.save(treatment4);
+        // Hybrid lashes treatments
+        Treatment hybridNewSet = new Treatment();
+        hybridNewSet.setName("Hybrid lashes - New Set");
+        hybridNewSet.setDescription("Application of a new set of hybrid lashes.");
+        hybridNewSet.setDuration(120);
+        hybridNewSet.setPrice(450);
+        treatmentRepository.save(hybridNewSet);
+
+        Treatment hybridRefillLarge = new Treatment();
+        hybridRefillLarge.setName("Hybrid lashes - Large Refill");
+        hybridRefillLarge.setDescription("Refill for hybrid lashes with 40-50 lashes remaining within 3 weeks.");
+        hybridRefillLarge.setDuration(75);
+        hybridRefillLarge.setPrice(400);
+        treatmentRepository.save(hybridRefillLarge);
+
+        Treatment hybridRefillSmall = new Treatment();
+        hybridRefillSmall.setName("Hybrid lashes - Small Refill");
+        hybridRefillSmall.setDescription("Refill for hybrid lashes with 20-30% remaining within 2 weeks.");
+        hybridRefillSmall.setDuration(75);
+        hybridRefillSmall.setPrice(350);
+        treatmentRepository.save(hybridRefillSmall);
+
+        // YY lashes treatments
+        Treatment yyNewSet = new Treatment();
+        yyNewSet.setName("YY lashes - New Set");
+        yyNewSet.setDescription("Application of a new set of YY lashes.");
+        yyNewSet.setDuration(100);
+        yyNewSet.setPrice(450);
+        treatmentRepository.save(yyNewSet);
+
+        Treatment yyRefillLarge = new Treatment();
+        yyRefillLarge.setName("YY lashes - Large Refill");
+        yyRefillLarge.setDescription("Refill for YY lashes with 40-50 lashes remaining within 3 weeks.");
+        yyRefillLarge.setDuration(70);
+        yyRefillLarge.setPrice(400);
+        treatmentRepository.save(yyRefillLarge);
+
+        Treatment yyRefillSmall = new Treatment();
+        yyRefillSmall.setName("YY lashes - Small Refill");
+        yyRefillSmall.setDescription("Refill for YY lashes with 20-30% remaining within 2 weeks.");
+        yyRefillSmall.setDuration(70);
+        yyRefillSmall.setPrice(350);
+        treatmentRepository.save(yyRefillSmall);
+
+        // Volume lashes treatments
+        Treatment volumeNewSet = new Treatment();
+        volumeNewSet.setName("Volume lashes - New Set");
+        volumeNewSet.setDescription("Application of a new set of volume lashes.");
+        volumeNewSet.setDuration(150);
+        volumeNewSet.setPrice(500);
+        treatmentRepository.save(volumeNewSet);
+
+        Treatment volumeRefillLarge = new Treatment();
+        volumeRefillLarge.setName("Volume lashes - Large Refill");
+        volumeRefillLarge.setDescription("Refill for volume lashes with 40-50 lashes remaining within 3 weeks.");
+        volumeRefillLarge.setDuration(90);
+        volumeRefillLarge.setPrice(450);
+        treatmentRepository.save(volumeRefillLarge);
+
+        Treatment volumeRefillSmall = new Treatment();
+        volumeRefillSmall.setName("Volume lashes - Small Refill");
+        volumeRefillSmall.setDescription("Refill for volume lashes with 20-30% remaining within 2 weeks.");
+        volumeRefillSmall.setDuration(90);
+        volumeRefillSmall.setPrice(450);
+        treatmentRepository.save(volumeRefillSmall);
 
 
 
@@ -82,20 +142,20 @@ public class CustomerData implements CommandLineRunner {
 
 
         Booking booking1 = new Booking();
-        booking1.setTreatment(treatment1);
+        booking1.setTreatment(singleNewSet);
         booking1.setCustomer(customer1);
         booking1.setBookingDate(LocalDate.now()); // Just an example date, adjust as needed
         booking1.setStartTime(LocalTime.of(9, 0)); // Set the start time of the booking
-        booking1.setEndTime(booking1.getStartTime().plusMinutes(treatment1.getDuration())); // Calculate end time based on treatment duration
+        booking1.setEndTime(booking1.getStartTime().plusMinutes(singleNewSet.getDuration())); // Calculate end time based on treatment duration
         booking1.setAvailable(true); // Example, adjust as needed
         bookingRepository.save(booking1);
 
         Booking booking2 = new Booking();
-        booking2.setTreatment(treatment2);
+        booking2.setTreatment(volumeRefillLarge);
         booking2.setCustomer(customer2);
         booking2.setBookingDate(LocalDate.now().plusDays(1)); // Just an example date, adjust as needed
         booking2.setStartTime(LocalTime.of(14, 0)); // Set the start time of the booking
-        booking2.setEndTime(booking2.getStartTime().plusMinutes(treatment2.getDuration())); // Calculate end time based on treatment duration
+        booking2.setEndTime(booking2.getStartTime().plusMinutes(volumeRefillLarge.getDuration())); // Calculate end time based on treatment duration
         booking2.setAvailable(true); // Example, adjust as needed
         bookingRepository.save(booking2);
 
