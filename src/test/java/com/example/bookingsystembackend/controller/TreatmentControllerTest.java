@@ -58,11 +58,11 @@ class TreatmentControllerTest {
         List<Treatment> treatments = Arrays.asList(new Treatment(), new Treatment());
 
         // Mock the behavior of treatmentService.readTreatments() to return the list of treatments.
-        when(treatmentService.readTreatments()).thenReturn(treatments);
+        when(treatmentService.getAllTreatments()).thenReturn(treatments);
 
         // Act
         // Call the readTreatments method on the treatmentController under test.
-        List<Treatment> result = treatmentController.readTreatments();
+        List<Treatment> result = treatmentController.getAllTreatments();
 
         // Assert
         // Ensure that the result is not null and is equal to the list of treatments created.
@@ -70,7 +70,7 @@ class TreatmentControllerTest {
         assertEquals(treatments, result);
 
         // Verify that the readTreatments method of treatmentService was called exactly once.
-        verify(treatmentService, times(1)).readTreatments();
+        verify(treatmentService, times(1)).getAllTreatments();
     }
 
     @Test
