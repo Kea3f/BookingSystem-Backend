@@ -32,21 +32,21 @@ public class CustomerData implements CommandLineRunner {
         Treatment singleNewSet = new Treatment();
         singleNewSet.setName("Single lashes - New Set");
         singleNewSet.setDescription("Application of a new set of single lashes.");
-        singleNewSet.setDuration(90);
+        singleNewSet.setDuration(120);
         singleNewSet.setPrice(400);
         treatmentRepository.save(singleNewSet);
 
         Treatment singleRefillLarge = new Treatment();
         singleRefillLarge.setName("Single lashes - Large Refill");
         singleRefillLarge.setDescription("Refill for single lashes with 40-50 lashes remaining within 3 weeks.");
-        singleRefillLarge.setDuration(60);
+        singleRefillLarge.setDuration(120);
         singleRefillLarge.setPrice(350);
         treatmentRepository.save(singleRefillLarge);
 
         Treatment singleRefillSmall = new Treatment();
         singleRefillSmall.setName("Single lashes - Small Refill");
         singleRefillSmall.setDescription("Refill for single lashes with 20-30% remaining within 2 weeks.");
-        singleRefillSmall.setDuration(60);
+        singleRefillSmall.setDuration(120);
         singleRefillSmall.setPrice(300);
         treatmentRepository.save(singleRefillSmall);
 
@@ -61,14 +61,14 @@ public class CustomerData implements CommandLineRunner {
         Treatment hybridRefillLarge = new Treatment();
         hybridRefillLarge.setName("Hybrid lashes - Large Refill");
         hybridRefillLarge.setDescription("Refill for hybrid lashes with 40-50 lashes remaining within 3 weeks.");
-        hybridRefillLarge.setDuration(75);
+        hybridRefillLarge.setDuration(120);
         hybridRefillLarge.setPrice(400);
         treatmentRepository.save(hybridRefillLarge);
 
         Treatment hybridRefillSmall = new Treatment();
         hybridRefillSmall.setName("Hybrid lashes - Small Refill");
         hybridRefillSmall.setDescription("Refill for hybrid lashes with 20-30% remaining within 2 weeks.");
-        hybridRefillSmall.setDuration(75);
+        hybridRefillSmall.setDuration(120);
         hybridRefillSmall.setPrice(350);
         treatmentRepository.save(hybridRefillSmall);
 
@@ -76,21 +76,21 @@ public class CustomerData implements CommandLineRunner {
         Treatment yyNewSet = new Treatment();
         yyNewSet.setName("YY lashes - New Set");
         yyNewSet.setDescription("Application of a new set of YY lashes.");
-        yyNewSet.setDuration(100);
+        yyNewSet.setDuration(120);
         yyNewSet.setPrice(450);
         treatmentRepository.save(yyNewSet);
 
         Treatment yyRefillLarge = new Treatment();
         yyRefillLarge.setName("YY lashes - Large Refill");
         yyRefillLarge.setDescription("Refill for YY lashes with 40-50 lashes remaining within 3 weeks.");
-        yyRefillLarge.setDuration(70);
+        yyRefillLarge.setDuration(120);
         yyRefillLarge.setPrice(400);
         treatmentRepository.save(yyRefillLarge);
 
         Treatment yyRefillSmall = new Treatment();
         yyRefillSmall.setName("YY lashes - Small Refill");
         yyRefillSmall.setDescription("Refill for YY lashes with 20-30% remaining within 2 weeks.");
-        yyRefillSmall.setDuration(70);
+        yyRefillSmall.setDuration(120);
         yyRefillSmall.setPrice(350);
         treatmentRepository.save(yyRefillSmall);
 
@@ -98,21 +98,21 @@ public class CustomerData implements CommandLineRunner {
         Treatment volumeNewSet = new Treatment();
         volumeNewSet.setName("Volume lashes - New Set");
         volumeNewSet.setDescription("Application of a new set of volume lashes.");
-        volumeNewSet.setDuration(150);
+        volumeNewSet.setDuration(120);
         volumeNewSet.setPrice(500);
         treatmentRepository.save(volumeNewSet);
 
         Treatment volumeRefillLarge = new Treatment();
         volumeRefillLarge.setName("Volume lashes - Large Refill");
         volumeRefillLarge.setDescription("Refill for volume lashes with 40-50 lashes remaining within 3 weeks.");
-        volumeRefillLarge.setDuration(90);
+        volumeRefillLarge.setDuration(120);
         volumeRefillLarge.setPrice(450);
         treatmentRepository.save(volumeRefillLarge);
 
         Treatment volumeRefillSmall = new Treatment();
         volumeRefillSmall.setName("Volume lashes - Small Refill");
         volumeRefillSmall.setDescription("Refill for volume lashes with 20-30% remaining within 2 weeks.");
-        volumeRefillSmall.setDuration(90);
+        volumeRefillSmall.setDuration(120);
         volumeRefillSmall.setPrice(450);
         treatmentRepository.save(volumeRefillSmall);
 
