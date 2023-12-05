@@ -9,7 +9,7 @@ import com.example.bookingsystembackend.repositories.CustomerRepository;
 import com.example.bookingsystembackend.repositories.TreatmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,12 +20,11 @@ import java.util.stream.Collectors;
 @Service
 public class BookingService {
 
-    public BookingService(BookingRepository bookingRepository, TreatmentRepository treatmentRepository, CustomerRepository customerRepository, ModelMapper modelMapper, OAuth2AuthorizedClientService authorizedClientService) {
+    public BookingService(BookingRepository bookingRepository, TreatmentRepository treatmentRepository, CustomerRepository customerRepository, ModelMapper modelMapper) {
         this.bookingRepository = bookingRepository;
         this.customerRepository = customerRepository;
         this.treatmentRepository = treatmentRepository;
         this.modelMapper = modelMapper;
-        this.authorizedClientService = authorizedClientService;
     }
 
     @Autowired
@@ -40,9 +39,6 @@ public class BookingService {
 
     @Autowired
     private final ModelMapper modelMapper;
-
-    @Autowired
-    private OAuth2AuthorizedClientService authorizedClientService;
 
 
     //Viewing all bookings made (for admin)
