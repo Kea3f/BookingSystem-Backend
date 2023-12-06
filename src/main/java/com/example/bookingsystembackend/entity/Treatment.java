@@ -1,5 +1,6 @@
 package com.example.bookingsystembackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class Treatment {
     }
 
     @OneToMany(mappedBy = "treatment", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Booking> bookings = new ArrayList<>();
 
 

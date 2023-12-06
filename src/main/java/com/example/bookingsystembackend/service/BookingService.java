@@ -123,6 +123,40 @@ public class BookingService {
         }
     }
 
+    public Booking updateBooking(int bookingId, int customerId, int treatmentId, LocalDate bookingDate, LocalTime startTime) {
+        // Retrieve the existing booking from the repository
+        Booking existingBooking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new IllegalArgumentException("Booking not found for ID: " + bookingId));
+
+        // Check if the existing booking can be updated
+        if (!existingBooking.isAvailable()) {
+            throw new IllegalArgumentException("Booking cannot be updated as it is not available.");
+        }
+
+        // Check if the new time slot is available
+        boolean isTimeSlotAvailable = isTimeSlotAvailable(bookingDate, startTime);
+        if (!isTimeSlotAvailable) {
+            throw new IllegalArgumentException("Selected time slot is not available.");
+        }
+
+        // Retrieve the customer and treatment entities
+        Customer customer = customerRepository.findByCustomerId(customerId);
+        Treatment treatment = treatmentRepository.findByTreatmentId(treatmentId);
+
+        if (customer != null && treatment != null) {
+            // Update the existing booking with the new information
+            existingBooking.setCustomer(customer);
+            existingBooking.setTreatment(treatment);
+            existingBooking.setBookingDate(bookingDate);
+            existingBooking.setStartTime(startTime);
+
+            // Save the updated booking
+            return bookingRepository.save(existingBooking);
+        } else {
+            throw new IllegalArgumentException("Customer or Treatment not found.");
+        }
+    }
+
 }
 
 

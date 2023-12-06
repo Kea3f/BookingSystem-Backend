@@ -5,6 +5,7 @@ import com.example.bookingsystembackend.dto.CustomerBookingDto;
 import com.example.bookingsystembackend.entity.Booking;
 import com.example.bookingsystembackend.entity.Customer;
 import com.example.bookingsystembackend.service.BookingService;
+import com.example.bookingsystembackend.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,12 @@ import java.util.List;
 public class BookingController {
 
     private final BookingService bookingService;
+    private final OwnerService ownerService;
+
     @Autowired
-    public BookingController(BookingService bookingService){
-        this.bookingService=bookingService;
+    public BookingController(BookingService bookingService, OwnerService ownerService) {
+        this.bookingService = bookingService;
+        this.ownerService = ownerService;
     }
 
 
@@ -37,6 +41,32 @@ public class BookingController {
     public ResponseEntity<List<CustomerBookingDto>> getBookingsForCustomer(@PathVariable Customer customer) {
         List<CustomerBookingDto> bookingDtos = bookingService.getCustomerBookingsDtoForCustomer(customer);
         return ResponseEntity.ok(bookingDtos);
+    }
+
+    @PutMapping("/update/{bookingId}")
+    public ResponseEntity<Object> updateBooking(
+            @PathVariable int bookingId,
+            @RequestParam int customerId,
+            @RequestParam int treatmentId,
+            @RequestParam String bookingDate,
+            @RequestParam String startTime
+    ) {
+        try {
+            // Assuming you have a method in BookingService to handle the update
+            Booking updatedBooking = bookingService.updateBooking(
+                    bookingId,
+                    customerId,
+                    treatmentId,
+                    LocalDate.parse(bookingDate),
+                    LocalTime.parse(startTime)
+            );
+            return ResponseEntity.ok(updatedBooking);
+        } catch (DateTimeParseException | IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid input format or " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating booking: " + e.getMessage());
+        }
     }
     @DeleteMapping("/delete/{bookingId}")
     public ResponseEntity<String> deleteBooking(@PathVariable int bookingId){
