@@ -1,6 +1,5 @@
 package com.example.bookingsystembackend.controller;
 
-import com.example.bookingsystembackend.dto.CustomerBookingDto;
 import com.example.bookingsystembackend.entity.Booking;
 import com.example.bookingsystembackend.service.BookingService;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,19 +7,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.verification.VerificationMode;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.google.common.base.Verify.verify;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
