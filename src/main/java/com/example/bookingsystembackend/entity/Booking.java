@@ -1,14 +1,12 @@
 package com.example.bookingsystembackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -21,10 +19,12 @@ public class Booking {
     private int bookingId;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "customer_id") // Mapping to the Customer entity
     private Customer customer;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "treatment_id") // Mapping to the Treatment entity
     private Treatment treatment;
 
