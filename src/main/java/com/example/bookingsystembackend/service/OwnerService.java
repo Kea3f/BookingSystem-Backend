@@ -15,5 +15,18 @@ public class OwnerService {
         this.ownerRepository = ownerRepository;
     }
 
-
+    public Owner autenticateOwner(String ownerEmail, String ownerPassword) {
+        if (ownerEmail == null || ownerPassword == null || ownerEmail.trim().isEmpty() || ownerPassword.trim().isEmpty()) {
+            throw new IllegalArgumentException("Email or password cannot be null or empty");
+        }
+        Owner owner = ownerRepository.findByOwnerEmail(ownerEmail);
+        if (owner == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        if (owner.getOwnerPassword().equals(ownerPassword)) {
+            return owner;
+        } else {
+            throw new IllegalArgumentException("Incorrect password");
+        }
+    }
 }
