@@ -87,7 +87,7 @@ public class BookingService {
         bookingRepository.updateCustomerAndTreatment(bookingId, customerId, treatmentId);
     }
 
-    private boolean isTimeSlotAvailable(LocalDate bookingDate, LocalTime startTime) {
+    private boolean isTimeSlotAvailableByAdmin(LocalDate bookingDate, LocalTime startTime) {
         List<Booking> bookingsAtTime = bookingRepository.findStartTimesByBookingDateAndAvailableTrue(bookingDate);
 
         for (Booking booking : bookingsAtTime) {
@@ -99,34 +99,42 @@ public class BookingService {
     }
 
 
+
     // Method to create a booking for a customer (user)
     public Booking createBooking(int customerId, int treatmentId, LocalDate bookingDate, LocalTime startTime) {
         Customer customer = customerRepository.findByCustomerId(customerId);
         Treatment treatment = treatmentRepository.findByTreatmentId(treatmentId);
-//
+
         if (customer != null && treatment != null) {
-            boolean isTimeSlotAvailable = isTimeSlotAvailable(bookingDate, startTime);
+            boolean isTimeSlotAvailable = isTimeSlotAvailableByAdmin(bookingDate, startTime);
 
             if (isTimeSlotAvailable) {
-                Booking newBooking = new Booking();
-                newBooking.setCustomer(customer);
-                newBooking.setTreatment(treatment);
-                newBooking.setBookingDate(bookingDate);
-                newBooking.setStartTime(startTime);
-                newBooking.setAvailable(false); // Assuming it's not available once booked
+                boolean isTimeSlotBooked = isTimeSlotBooked(bookingDate, startTime);
 
-                // Save the new booking under the customer's profile
-                customer.addBooking(newBooking);
-                customerRepository.save(customer);
+                if (!isTimeSlotBooked) {
+                    Booking newBooking = new Booking();
+                    newBooking.setCustomer(customer);
+                    newBooking.setTreatment(treatment);
+                    newBooking.setBookingDate(bookingDate);
+                    newBooking.setStartTime(startTime);
+                    newBooking.setAvailable(false); // Assuming it's not available once booked
 
-                return bookingRepository.save(newBooking);
+                    // Save the new booking under the customer's profile
+                    customer.addBooking(newBooking);
+                    customerRepository.save(customer);
+
+                    return bookingRepository.save(newBooking);
+                } else {
+                    throw new IllegalArgumentException("Selected time slot is already booked.");
+                }
             } else {
-                throw new IllegalArgumentException("Selected time slot is not available.");
+                throw new IllegalArgumentException("Selected time slot is not available by admin.");
             }
         } else {
             throw new IllegalArgumentException("Customer or Treatment not found.");
         }
     }
+
 
     public Booking updateBooking(int bookingId, int customerId, int treatmentId, LocalDate bookingDate, LocalTime startTime) {
         // Retrieve the existing booking from the repository
@@ -162,6 +170,31 @@ public class BookingService {
         }
     }
 
+    private boolean isTimeSlotAvailable(LocalDate bookingDate, LocalTime startTime) {
+        List<Booking> bookingsOnDate = bookingRepository.findByBookingDate(bookingDate);
+
+        for (Booking booking : bookingsOnDate) {
+            // Check if the requested time slot overlaps with existing bookings
+            if (startTime.equals(booking.getStartTime())) {
+                return false; // Time slot is already booked
+            }
+        }
+        return true; // Time slot is available
+
+    }
+
+
+    private boolean isTimeSlotBooked(LocalDate date, LocalTime startTime) {
+        List<Booking> bookingsOnDate = bookingRepository.findByBookingDate(date);
+
+        for (Booking booking : bookingsOnDate) {
+            // Check if the requested time slot is already booked
+            if (startTime.equals(booking.getStartTime())) {
+                return true; // Time slot is already booked
+            }
+        }
+        return false; // Time slot is not booked
+    }
 
 
 
