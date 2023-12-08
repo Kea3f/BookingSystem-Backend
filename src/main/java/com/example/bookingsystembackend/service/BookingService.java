@@ -83,6 +83,9 @@ public class BookingService {
     }
 
 
+    public void updateCustomerAndTreatment(int bookingId, int customerId, int treatmentId) {
+        bookingRepository.updateCustomerAndTreatment(bookingId, customerId, treatmentId);
+    }
 
     private boolean isTimeSlotAvailable(LocalDate bookingDate, LocalTime startTime) {
         List<Booking> bookingsAtTime = bookingRepository.findStartTimesByBookingDateAndAvailableTrue(bookingDate);

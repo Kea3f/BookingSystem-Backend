@@ -49,11 +49,14 @@ public class TreatmentService {
     }
 
     //Selecting a wanted treatment (for user)
-    //TODO skal session implemteres her for at forbinde kunder til valgt behandling
     public Treatment getTreatmentById(int treatmentId) {
         return treatmentRepository.findByTreatmentId(treatmentId);
     }
 
+
+    public void setCustomerTreatment(int customerId, int treatmentId) {
+        treatmentRepository.setCustomerTreatment(customerId, treatmentId);
+    }
 
 
 }

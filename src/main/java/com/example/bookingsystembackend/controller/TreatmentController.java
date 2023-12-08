@@ -1,8 +1,11 @@
 package com.example.bookingsystembackend.controller;
 
 import com.example.bookingsystembackend.entity.Treatment;
+import com.example.bookingsystembackend.service.CustomerService;
 import com.example.bookingsystembackend.service.TreatmentService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +17,12 @@ import java.util.List;
 public class TreatmentController {
 
     private final TreatmentService treatmentService;
+    private final CustomerService customerService;
+
     @Autowired
-    public TreatmentController(TreatmentService treatmentService){
+    public TreatmentController(TreatmentService treatmentService, CustomerService customerService){
         this.treatmentService = treatmentService;
+        this.customerService = customerService;
     }
 
     @PostMapping("/create")
@@ -33,13 +39,22 @@ public class TreatmentController {
 
     //Select specific treatment
     @GetMapping("/selectTreatment/{customerId}/{treatmentId}")
-    public ResponseEntity<Treatment> selectTreatment(@PathVariable int treatmentId) {
+    public ResponseEntity<Treatment> selectTreatment(@PathVariable int customerId, @PathVariable int treatmentId, HttpSession httpSession) {
+        // Tjek if the customer is  logget nd
+        if (httpSession.getAttribute("customerId") == null || (int) httpSession.getAttribute("customerId") != customerId) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        // treatment saves in the customer session
         Treatment treatment = treatmentService.getTreatmentById(treatmentId);
         if (treatment != null) {
+            // save option chose in customer session
+            treatmentService.setCustomerTreatment(customerId, treatmentId);
             return ResponseEntity.ok(treatment);
         }
         return ResponseEntity.notFound().build();
     }
+
 
 
     @PutMapping("/edit{treatmentId}")
