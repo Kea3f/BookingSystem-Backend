@@ -94,6 +94,7 @@ public class BookingService {
     }
 
 
+    //112
     // Method to create a booking for a customer (user)
     public Booking createBooking(int customerId, int treatmentId, LocalDate bookingDate, LocalTime startTime) {
         Customer customer = customerRepository.findByCustomerId(customerId);
@@ -122,6 +123,9 @@ public class BookingService {
             throw new IllegalArgumentException("Customer or Treatment not found.");
         }
     }
+
+
+
 
     public Booking updateBooking(int bookingId, int customerId, int treatmentId, LocalDate bookingDate, LocalTime startTime) {
         // Retrieve the existing booking from the repository
