@@ -98,7 +98,7 @@ public class BookingService {
     public Booking createBooking(int customerId, int treatmentId, LocalDate bookingDate, LocalTime startTime) {
         Customer customer = customerRepository.findByCustomerId(customerId);
         Treatment treatment = treatmentRepository.findByTreatmentId(treatmentId);
-
+//
         if (customer != null && treatment != null) {
             boolean isTimeSlotAvailable = isTimeSlotAvailable(bookingDate, startTime);
 

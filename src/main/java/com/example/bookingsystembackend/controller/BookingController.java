@@ -96,7 +96,6 @@ public class BookingController {
             return ResponseEntity.badRequest().body("Invalid input format or " + e.getMessage());
         }
     }
-
     @GetMapping("/available-times")
     public ResponseEntity<Object> getAvailableBookingTimesForDay(@RequestParam String bookingDate) {
         try {
