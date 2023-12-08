@@ -107,4 +107,14 @@ public class BookingController {
         }
     }
 
+    @GetMapping("/availableSlots")
+    public ResponseEntity<List<LocalTime>> getAvailableBookingSlots(@RequestParam("bookingDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate bookingDate) {
+        try {
+            List<LocalTime> availableTimes = bookingService.getAvailableBookingTimesForDay(bookingDate);
+            return ResponseEntity.ok(availableTimes);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

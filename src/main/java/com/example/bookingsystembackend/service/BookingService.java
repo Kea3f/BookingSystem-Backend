@@ -82,6 +82,8 @@ public class BookingService {
         return availableTimeList;
     }
 
+
+
     private boolean isTimeSlotAvailable(LocalDate bookingDate, LocalTime startTime) {
         List<Booking> bookingsAtTime = bookingRepository.findStartTimesByBookingDateAndAvailableTrue(bookingDate);
 
@@ -156,6 +158,25 @@ public class BookingService {
             throw new IllegalArgumentException("Customer or Treatment not found.");
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
