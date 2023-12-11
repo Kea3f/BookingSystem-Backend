@@ -74,18 +74,26 @@ public class BookingController {
         return ResponseEntity.ok("Booking Deleted");
     }
 
-    @PutMapping("/updateCustomerAndTreatment/{bookingId}")
-    public ResponseEntity<String> updateCustomerAndTreatment(
-            @PathVariable int bookingId,
+    @PostMapping("/create")
+    public ResponseEntity<Object> createBooking(
             @RequestParam int customerId,
-            @RequestParam int treatmentId
+            @RequestParam int treatmentId,
+            @RequestParam String bookingDate,
+            @RequestParam String startTime
     ) {
         try {
-            bookingService.updateCustomerAndTreatment(bookingId, customerId, treatmentId);
-            return ResponseEntity.ok("Booking updated with new customer and treatment.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error updating booking: " + e.getMessage());
+            LocalDate parsedBookingDate = LocalDate.parse(bookingDate);
+            LocalTime parsedStartTime = LocalTime.parse(startTime);
+
+            Booking newBooking = bookingService.createBooking(
+                    customerId,
+                    treatmentId,
+                    parsedBookingDate,
+                    parsedStartTime
+            );
+            return ResponseEntity.ok(newBooking);
+        } catch (DateTimeParseException | IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid input format or " + e.getMessage());
         }
     }
 
