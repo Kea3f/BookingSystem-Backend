@@ -2,11 +2,9 @@ package com.example.bookingsystembackend.config;
 
 import com.example.bookingsystembackend.entity.Booking;
 import com.example.bookingsystembackend.entity.Customer;
-import com.example.bookingsystembackend.entity.Owner;
 import com.example.bookingsystembackend.entity.Treatment;
 import com.example.bookingsystembackend.repositories.BookingRepository;
 import com.example.bookingsystembackend.repositories.CustomerRepository;
-import com.example.bookingsystembackend.repositories.OwnerRepository;
 import com.example.bookingsystembackend.repositories.TreatmentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,13 +18,12 @@ public class CustomerData implements CommandLineRunner {
     CustomerRepository customerRepository;
     TreatmentRepository treatmentRepository;
     BookingRepository bookingRepository;
-    OwnerRepository ownerRepository;
 
-    public CustomerData(CustomerRepository customerRepository, TreatmentRepository treatmentRepository, BookingRepository bookingRepository, OwnerRepository ownerRepository) {
+
+    public CustomerData(CustomerRepository customerRepository, TreatmentRepository treatmentRepository, BookingRepository bookingRepository) {
         this.customerRepository = customerRepository;
         this.treatmentRepository = treatmentRepository;
         this.bookingRepository = bookingRepository;
-        this.ownerRepository = ownerRepository;
     }
 
     @Override
@@ -171,29 +168,5 @@ public class CustomerData implements CommandLineRunner {
         booking2.setAvailable(true); // Example, adjust as needed
         bookingRepository.save(booking2);
 
-
-
-    Owner owner1 = new Owner();
-        owner1.setOwnerId(1);
-        owner1.setOwnerEmail("admina@gmail.com");
-        owner1.setOwnerPassword("Kea1234");
-        owner1.setOwnerUsername("Admina");
-        ownerRepository.save(owner1);
-
-        Owner owner2 = new Owner();
-        owner2.setOwnerId(4);
-        owner2.setOwnerEmail("ada@gmail.com");
-        owner2.setOwnerPassword("Kea1234");
-        owner2.setOwnerUsername("Anders");
-        ownerRepository.save(owner2);
-
-        Owner owner3 = new Owner();
-        owner3.setOwnerId(5);
-        owner3.setOwnerEmail("wasda@gmail.com");
-        owner3.setOwnerPassword("Kea1234");
-        owner3.setOwnerUsername("Walle");
-        ownerRepository.save(owner3);
-
 }
-
 }
