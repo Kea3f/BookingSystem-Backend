@@ -2,9 +2,11 @@ package com.example.bookingsystembackend.config;
 
 import com.example.bookingsystembackend.entity.Booking;
 import com.example.bookingsystembackend.entity.Customer;
+import com.example.bookingsystembackend.entity.Owner;
 import com.example.bookingsystembackend.entity.Treatment;
 import com.example.bookingsystembackend.repositories.BookingRepository;
 import com.example.bookingsystembackend.repositories.CustomerRepository;
+import com.example.bookingsystembackend.repositories.OwnerRepository;
 import com.example.bookingsystembackend.repositories.TreatmentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,12 +20,14 @@ public class CustomerData implements CommandLineRunner {
     CustomerRepository customerRepository;
     TreatmentRepository treatmentRepository;
     BookingRepository bookingRepository;
+    OwnerRepository ownerRepository;
 
 
-    public CustomerData(CustomerRepository customerRepository, TreatmentRepository treatmentRepository, BookingRepository bookingRepository) {
+    public CustomerData(CustomerRepository customerRepository, TreatmentRepository treatmentRepository, BookingRepository bookingRepository, OwnerRepository ownerRepository) {
         this.customerRepository = customerRepository;
         this.treatmentRepository = treatmentRepository;
         this.bookingRepository = bookingRepository;
+        this.ownerRepository = ownerRepository;
     }
 
     @Override
@@ -167,6 +171,14 @@ public class CustomerData implements CommandLineRunner {
         booking2.setEndTime(booking2.getStartTime().plusMinutes(hybridNewSet.getDuration())); // Calculate end time based on treatment duration
         booking2.setAvailable(true); // Example, adjust as needed
         bookingRepository.save(booking2);
+
+        Owner owner1 = new Owner();
+        owner1.setId(1);
+        owner1.setEmail("Amalie");
+        owner1.setPassword("Kea1234");
+        owner1.setEmail("biran@outlook.dk");
+        ownerRepository.save(owner1);
+
 
 }
 }
