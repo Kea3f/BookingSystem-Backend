@@ -5,9 +5,7 @@ import com.example.bookingsystembackend.dto.CustomerBookingDto;
 import com.example.bookingsystembackend.entity.Booking;
 import com.example.bookingsystembackend.entity.Customer;
 import com.example.bookingsystembackend.service.BookingService;
-import com.example.bookingsystembackend.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +21,10 @@ import java.util.List;
 public class BookingController {
 
     private final BookingService bookingService;
-    private final OwnerService ownerService;
 
     @Autowired
-    public BookingController(BookingService bookingService, OwnerService ownerService) {
+    public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
-        this.ownerService = ownerService;
     }
 
 
