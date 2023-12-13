@@ -1,18 +1,18 @@
-
 package com.example.bookingsystembackend.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 public class OwnerLoginDto {
-    private String ownerEmail;
-    private String ownerPassword;
 
-    public OwnerLoginDto(String ownerEmail, String password) {
-        this.ownerEmail = ownerEmail;
-        this.ownerPassword = ownerPassword;
+    private String email;
+    private String password;
+
+    public OwnerLoginDto(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
-}
 
+}
