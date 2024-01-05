@@ -22,6 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @RequestMapping("/api/booking")
 public class BookingController {
 
+    //
     private final BookingService bookingService;
 
     @Autowired
