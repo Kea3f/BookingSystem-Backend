@@ -53,10 +53,12 @@ public class TreatmentService {
         return treatmentRepository.findByTreatmentId(treatmentId);
     }
 
-
+/*
     public void setCustomerTreatment(int customerId, int treatmentId) {
         treatmentRepository.setCustomerTreatment(customerId, treatmentId);
     }
 
+
+ */
 
 }

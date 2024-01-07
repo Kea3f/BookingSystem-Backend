@@ -1,33 +1,33 @@
-name: Java CI/CD with Maven and Azure App Service Deploy
+name: Java CI/CD with Maven and Azure App Service Deploy # Navnet på CI/CD workflowet
 
 on:
   push:
     branches:
-      - main
+      - main # Definerer, at denne workflow kun køres ved push-hændelser til 'main'-branchen
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build: # Jobbet 'build', som udføres af denne workflow
+    runs-on: ubuntu-latest # Angiver, at jobbet skal køre på den seneste version af Ubuntu
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository # Tjekker koden ud fra GitHub repository
+        uses: actions/checkout@v2 # Bruger GitHub Actions' indbyggede 'checkout' action
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '17'
+      - name: Set up JDK 17 # Opsætter Java Development Kit (JDK) version 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt' # Vælger distributionen af JDK, her 'adopt'
+          java-version: '17' # Angiver specifikt version 17 af Java
 
-    - name: Build with Maven
-      run: mvn -B clean install
+      - name: Build with Maven # Bygger projektet ved hjælp af Maven
+        run: mvn -B clean install # Kører Maven-kommandoen 'clean install' for at bygge projektet og installere afhængigheder
 
-    - name: Run Tests
-      run: mvn test
+      - name: Run Tests # Kører tests
+        run: mvn test # Udfører enhedstests ved hjælp af Maven
 
-    - name: Deploy to Azure App Service
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'bookingsystem'
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_427038C5938743F2BD6ED5F88F9C2261 }}
-        package: ${{ github.workspace }}/target/*.jar
+      - name: Deploy to Azure App Service # Trin for at deployere til Azure App Service
+        uses: azure/webapps-deploy@v2 # Bruger Azure Web Apps Deploy action
+        with:
+          app-name: 'bookingsystem' # Navnet på Azure App Service-applikationen
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_427038C5938743F2BD6ED5F88F9C2261 }} # Bruger en publish profile gemt som en hemmelighed i GitHub
+          package: ${{ github.workspace }}/target/*.jar # Angiver stien til den byggede .jar-fil, der skal deployeres

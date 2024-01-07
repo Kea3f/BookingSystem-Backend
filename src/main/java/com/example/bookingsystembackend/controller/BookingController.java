@@ -73,6 +73,7 @@ public class BookingController {
         return ResponseEntity.ok("Booking Deleted");
     }
 
+    /*
     @PostMapping("/create")
     public ResponseEntity<Object> createBooking(
             @RequestParam int customerId,
@@ -95,6 +96,8 @@ public class BookingController {
             return ResponseEntity.badRequest().body("Invalid input format or " + e.getMessage());
         }
     }
+    
+     */
 
 
     @GetMapping("/available-times")

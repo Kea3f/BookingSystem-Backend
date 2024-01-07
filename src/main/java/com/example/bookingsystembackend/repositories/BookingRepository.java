@@ -18,7 +18,7 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
  List<Booking> findAllBookingsBybookingDate(LocalDate bookingDate);
  List<Booking> findStartTimesByBookingDateAndAvailableTrue(LocalDate bookingDate);
 
- Booking updateCustomerAndTreatment(int bookingId, int customerId, int treatmentId);
+ //Booking updateCustomerAndTreatment(int bookingId, int customerId, int treatmentId);
 
 
  List<Booking> findByBookingDate(LocalDate date);

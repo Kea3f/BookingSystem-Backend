@@ -37,6 +37,7 @@ public class TreatmentController {
         return treatmentService.getAllTreatments();
     }
 
+    /*
     //Select specific treatment
     @GetMapping("/selectTreatment/{customerId}/{treatmentId}")
     public ResponseEntity<Treatment> selectTreatment(@PathVariable int customerId, @PathVariable int treatmentId, HttpSession httpSession) {
@@ -54,6 +55,8 @@ public class TreatmentController {
         }
         return ResponseEntity.notFound().build();
     }
+
+     */
 
 
 
